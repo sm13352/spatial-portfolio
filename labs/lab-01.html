@@ -46,15 +46,24 @@
 
     <h2>The data</h2>
     <p>
-     Where it came from, when it was collected, who made it, and under what
-licence. Then the part people skip: what is missing from it.
-    </p>
+     I used the China Layers teaching web map hosted by Esri. It includes
+  World Countries (Generalized), China Admin, China Rivers, China Roads,
+  and World Cities. One provenance issue is that the World Cities layer
+  gives Chongqing a population of about 12.5 million from UN-Habitat,
+  representing the built-up agglomeration, while the municipality has
+  about 32 million people. The China Admin layer also contains 63 polygons
+  even though China has 34 province-level units, because some units are
+  represented by multiple polygons.
+     </p>
 
     <h2>The method</h2>
     <p>
-       What you actually did, in enough detail that someone else could repeat
-it. Name the tool, the projection, and any threshold or class break you
-chose. If you chose a number, say why you chose that number.
+       For the Soho analysis, I used weighted kernel density estimation in ArcGIS
+  Online. I weighted the cholera case points by Num_Cases so that addresses
+  with more deaths had more influence on the heat map. I changed the bandwidth
+  using the unlabelled Area of influence slider and tested three positions:
+  far left, middle, and far right. I then compared the three maps to see how
+  the location and size of the hottest area changed.
     </p>
 
     <!-- ============================================================
@@ -80,21 +89,32 @@ chose. If you chose a number, say why you chose that number.
 
     <h2>What I found</h2>
     <p>
-      Plain language. What does the map support? Write it so someone outside
-      this course could follow it.
+      The sensitivity test showed that the result changed depending on the area
+  of influence. At the far-left setting, there were several small hotspots
+  and no clear overall centre. At the middle setting, the cases formed a
+  clearer central hotspot, with the 43 Broadwick Street pump nearest the
+  centre. At the far-right setting, 43 Broadwick Street was still nearest
+  the centre, but the pattern was too smoothed to identify a clear hotspot.
+  Therefore, the conclusion about 43 Broadwick Street was clear at two of
+  the three settings, showing that the result is sensitive to the bandwidth.
     </p>
 
     <h2>What this does not show</h2>
     <div class="limits">
       <p>
-        The honest part. What the map cannot support, what you had to assume,
-        and what would change your answer. If your unit of analysis could have
-        been drawn differently, say so here.
+        The heat map does not prove that the 43 Broadwick Street pump caused the
+  cholera outbreak. It only shows the spatial concentration of reported cases.
+  The result also depends on the chosen area of influence: changing the
+  bandwidth changed how clearly the centre appeared. The map may also be
+  affected by missing or inaccurate historical records and does not show
+  other factors that could have influenced where cholera cases occurred.
       </p>
       <p>
-        <strong>AI use:</strong> AI-assisted for [what], using [which tool].
-        I verified [how]. If you did not use AI, write "No AI tools were used
-        for this entry."
+        <strong>AI use:</strong> I used ChatGPT only to check that the HTML code
+  I wrote and edited was correct, as I have limited experience with coding.
+  I verified the result by opening the published page and checking that
+  everything displayed and worked correctly. The analysis, map settings,
+  and interpretation are my own.
       </p>
     </div>
 
