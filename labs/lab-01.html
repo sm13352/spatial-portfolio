@@ -41,29 +41,23 @@
 
     <h2>The question</h2>
     <p>
-     Where are China's major cities, roads, and rivers located in relation to its administrative boundaries?
+     China Layers: Where are China's major cities, roads, and rivers located in relation to its administrative boundaries?
+
+Soho Cholera: Where were the highest concentrations of cholera cases located in relation to the public water pumps in Soho?
     </p>
 
     <h2>The data</h2>
     <p>
-     I used the China Layers teaching web map hosted by Esri. It includes
-  World Countries (Generalized), China Admin, China Rivers, China Roads,
-  and World Cities. One provenance issue is that the World Cities layer
-  gives Chongqing a population of about 12.5 million from UN-Habitat,
-  representing the built-up agglomeration, while the municipality has
-  about 32 million people. The China Admin layer also contains 63 polygons
-  even though China has 34 province-level units, because some units are
-  represented by multiple polygons.
+    China Layers: I used the China Layers teaching web map hosted by Esri. It includes World Countries (Generalized), China Admin, China Rivers, China Roads, and World Cities. One provenance issue is that the World Cities layer gives Chongqing a population of about 12.5 million from UN-Habitat, representing the built-up agglomeration, while the municipality has about 32 million people. The China Admin layer also contains 63 polygons even though China has 34 province-level units, because some units are represented by multiple polygons.
+
+Soho Cholera: I used the Soho cholera teaching web map in ArcGIS Online. The main layers I worked with were Cholera cases by address, Public water pumps, and Snow_Map. The cholera data includes the Num_Cases attribute, which shows the number of cases recorded at each address. One limitation of this historical data is that the records and locations may not be complete or fully accurate, so the map should not be treated as a perfect record of the outbreak.
      </p>
 
     <h2>The method</h2>
     <p>
-       For the Soho analysis, I used weighted kernel density estimation in ArcGIS
-  Online. I weighted the cholera case points by Num_Cases so that addresses
-  with more deaths had more influence on the heat map. I changed the bandwidth
-  using the unlabelled Area of influence slider and tested three positions:
-  far left, middle, and far right. I then compared the three maps to see how
-  the location and size of the hottest area changed.
+       China Layers: For the China map, I worked with several feature layers in ArcGIS Online, including cities, roads, rivers, and administrative boundaries. I changed the symbols and sizes of the cities, used a filter to work with Chongqing, added key locations with a sketch layer, and compared different basemaps. I also measured the area of Chongqing and compared my measurement with its official area.
+
+Soho Cholera: For the Soho analysis, I used weighted kernel density estimation in ArcGIS Online. I weighted the cholera case points by Num_Cases so that addresses with more cases had more influence on the heat map. I changed the bandwidth using the unlabelled Area of influence slider and tested three positions: far left, middle, and far right. I then compared the three maps to see how the location and size of the hottest area changed.
     </p>
 
     <!-- ============================================================
@@ -100,25 +94,17 @@
 </figure>
     <h2>What I found</h2>
     <p>
-      The sensitivity test showed that the result changed depending on the area
-  of influence. At the far-left setting, there were several small hotspots
-  and no clear overall centre. At the middle setting, the cases formed a
-  clearer central hotspot, with the 43 Broadwick Street pump nearest the
-  centre. At the far-right setting, 43 Broadwick Street was still nearest
-  the centre, but the pattern was too smoothed to identify a clear hotspot.
-  Therefore, the conclusion about 43 Broadwick Street was clear at two of
-  the three settings, showing that the result is sensitive to the bandwidth.
+      China Layers: I found that China's major cities are mainly concentrated in the eastern part of the country, where the road network is also much denser. The map also helped me see how rivers, cities, and roads relate to the administrative boundaries. The Chongqing exercise showed that the result also depends on the unit being used. The World Cities data gives Chongqing a population of about 12.5 million for the built-up agglomeration, while about 32 million refers to the whole municipality.
+
+Soho Cholera: The sensitivity test showed that the result changed depending on the area of influence. At the far-left setting, there were several small hotspots and no clear overall centre. At the middle setting, the cases formed a clearer central hotspot, with the 43 Broadwick Street pump nearest the centre. At the far-right setting, 43 Broadwick Street was still nearest the centre, but the pattern was too smoothed to identify a clear hotspot. Therefore, the conclusion about 43 Broadwick Street was clear at two of the three settings, showing that the result is sensitive to the bandwidth.
     </p>
 
     <h2>What this does not show</h2>
     <div class="limits">
       <p>
-        The heat map does not prove that the 43 Broadwick Street pump caused the
-  cholera outbreak. It only shows the spatial concentration of reported cases.
-  The result also depends on the chosen area of influence: changing the
-  bandwidth changed how clearly the centre appeared. The map may also be
-  affected by missing or inaccurate historical records and does not show
-  other factors that could have influenced where cholera cases occurred.
+        China Layers: The map does not show every detail about China's cities, roads, rivers, or administrative areas. Some boundaries are generalized, so measurements from the map may be different from official measurements. The Chongqing example also shows why the unit matters: the built-up agglomeration and the whole municipality have different boundaries and populations.
+
+Soho Cholera: The heat map does not prove that the 43 Broadwick Street pump caused the cholera outbreak. It only shows the spatial concentration of reported cases. The result also depends on the chosen bandwidth, and the historical records may be incomplete or inaccurate. Other factors that could have influenced where cholera cases occurred are also not shown.
       </p>
       <p>
         <strong>AI use:</strong> I used ChatGPT only to check that the HTML code
