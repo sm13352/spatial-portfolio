@@ -42,43 +42,53 @@
 
 <h3>2016 U.S. Presidential Election</h3>
 <p>
-  How do different mapping techniques change the way the 2016 U.S. presidential election results are represented and interpreted?
+  Where were different vote-share patterns concentrated across U.S. counties
+  in 2016, and how does the pattern change when the same election data is
+  represented using different mapping techniques?
 </p>
        
- <h2>The data</h2>
+<h2>The data</h2>
 
 <h3>2016 U.S. Presidential Election</h3>
 <p>
-  I used the election_2016 layer provided for the lab in ArcGIS Online. 
-  The dataset contains 3,139 county records and includes Democratic and 
-  Republican vote shares, total votes, and other election-related attributes. 
-  One data problem is that Alaska appears as 28 polygons with the same statewide 
-  election values repeated in every row. After accounting for these duplicates, 
-  the national vote totals still do not match the certified results, showing 
-  that the dataset has additional data limitations.
+  I used the election_2016 layer in ArcGIS Online, published by
+  [ADD PUBLISHER] and available at [ADD LAYER LINK]. The dataset contains
+  3,139 county records. I found several data-quality problems. The DEM_votes
+  field is empty, while votes_DEM contains the Democratic vote counts.
+  The fields displayed as % DEM and % GOP contain proportions rather than
+  percentage-point values, so a value such as 0.71 represents about 71%.
+  Alaska also appears in 28 rows with identical statewide election values,
+  meaning that simply summing the rows would count Alaska repeatedly.
+  Even after accounting for the Alaska duplication, the totals in the layer
+  do not reconcile with the certified national results.
 </p>
 
 <h3>Cartogram Data</h3>
 <p>
-  For the cartogram, I used the LAB02_state-votes-2016.csv file supplied with 
-  the lab. It was created by aggregating the election_2016 data to the state 
-  level. The repeated Alaska values were corrected in this file, but the 
-  remaining differences between the dataset totals and the certified national 
-  results were intentionally left unchanged. The cartogram uses Votes_total 
-  to size the states and Pct_DEM to represent the Democratic vote share.
+  For the cartogram, I used the LAB02_state-votes-2016.csv file supplied
+  with the lab. It was created by aggregating the election_2016 data to the
+  state level. The repeated Alaska values were corrected in this file, but
+  the remaining reconciliation gap was not adjusted. The cartogram uses
+  Votes_total to determine state area and Pct_DEM to represent Democratic
+  vote share.
 </p>
+       
    <h2>The method</h2>
 
 <h3>2016 U.S. Presidential Election</h3>
 <p>
-  I used four different mapping techniques to represent the same election data. 
-  First, I created a predominant category map using DEM_per and GOP_per. 
-  Second, I used proportional symbols based on Total_Votes to show differences 
-  in voting volume between counties. Third, I calculated standardized Democratic 
-  vote-share scores using z-scores and displayed them with a diverging color 
-  scale centered at z = 0, which represents the average county in the dataset. 
-  Finally, I created a state-level cartogram in go-cart.io, using Votes_total 
-  to determine state size and Pct_DEM to represent Democratic vote share.
+  I used four mapping techniques to represent the election data. First, I
+  created a predominant-category map using DEM_per and GOP_per. I also tested
+  classification sensitivity using five classes and compared equal interval,
+  quantile, and natural breaks. Second, I created a proportional-symbol map
+  using Total_Votes to control symbol size. Third, I calculated standardized
+  Democratic vote-share scores using the Arcade expression
+  <code>($feature.DEM_per - 0.3174) / 0.1527</code>.
+  These z-scores are relative to the average across all counties in the
+  election_2016 layer, and I used z = 0 as the midpoint of the diverging
+  color scale. Finally, I created a state-level cartogram in go-cart.io,
+  using Votes_total to determine state area and Pct_DEM to represent
+  Democratic vote share.
 </p>
     <!-- ============================================================
          YOUR MAP
@@ -125,15 +135,17 @@
 
 <h3>2016 U.S. Presidential Election</h3>
 <p>
-  I found that the same election data can look very different depending on the 
-  mapping method. The classification test showed that quantile made high Democratic 
-  vote shares appear more widespread, while equal interval concentrated the highest 
-  values in far fewer counties. The proportional symbol map showed voting volume 
-  more clearly because counties with more total votes had larger symbols. The 
-  z-score map showed how each county's Democratic vote share differed from the 
-  average county. Finally, the cartogram emphasized states with more total votes 
-  by making them larger. Together, these maps showed that mapping choices strongly 
-  affect which patterns are visually emphasized.
+  I found that the same election data can look very different depending on
+  the mapping method. The county-level map also showed that geographic coverage
+  and voting volume are not the same thing: a large number of counties or a
+  large amount of land does not necessarily represent a similarly large number
+  of votes. The classification test showed that quantile placed 642 counties
+  in the highest class, while equal interval placed only 43 counties there and
+  natural breaks placed 198. This changed how geographically widespread the
+  highest Democratic vote shares appeared. The proportional-symbol map made
+  voting volume more visible, while the z-score map showed how each county
+  differed from the average county. The cartogram emphasized states with more
+  total votes by increasing their area.
 </p>
        
  <h2>What this does not show</h2>
@@ -142,11 +154,11 @@
 
   <h3>2016 U.S. Presidential Election</h3>
   <p>
-    These maps do not provide a complete or perfectly accurate picture of the 
-    election. The dataset has important limitations. Alaska appears in 28 rows 
-    with the same statewide results repeated, which would greatly inflate its 
-    totals if the rows were simply summed. Even after accounting for this issue, 
-    the national totals in the dataset do not match the certified election totals.
+     The maps also do not show the entire electorate. Democratic and Republican
+  vote-share maps do not separately represent third-party voters, and none of
+  these maps shows eligible people who did not vote. Therefore, the maps should
+  not be interpreted as a complete representation of all residents or all
+  political preferences.
   </p>
 
   <p>
