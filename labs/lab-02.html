@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lab 01 · Sazhida Mukanbetkaliyeva</title>
+<title>Lab 02 · Sazhida Mukanbetkaliyeva</title>
 
 <!-- Note the ../ — this page is inside the labs folder, so it has to
      look one level up to find the stylesheet. -->
@@ -27,51 +27,58 @@
 <article class="entry">
   <div class="wrap wrap-narrow">
 
-    <p class="kicker">Lab 01 · September 2026</p>
+    <p class="kicker">Lab 02 · September 2026</p>
 
     <!-- EDIT THIS: a title that says what you found, not what you did.
          "Where the metro does not go" beats "Lab 1 report". -->
-    <h1>Lab 01</h1>
+    <h1>Lab 02</h1>
 
     <!-- ============================================================
          The six parts. Every entry in this course has all six.
          Do not delete a heading — if a section is thin, that is
          information too.
          ============================================================ -->
+<h2>The question</h2>
 
-   <h2>The question</h2>
-
-<h3>China Layers</h3>
+<h3>2016 U.S. Presidential Election</h3>
 <p>
-  Where are China's major cities, roads, and rivers located in relation to its administrative boundaries?
+  How do different mapping techniques change the way the 2016 U.S. presidential election results are represented and interpreted?
+</p>
+       
+ <h2>The data</h2>
+
+<h3>2016 U.S. Presidential Election</h3>
+<p>
+  I used the election_2016 layer provided for the lab in ArcGIS Online. 
+  The dataset contains 3,139 county records and includes Democratic and 
+  Republican vote shares, total votes, and other election-related attributes. 
+  One data problem is that Alaska appears as 28 polygons with the same statewide 
+  election values repeated in every row. After accounting for these duplicates, 
+  the national vote totals still do not match the certified results, showing 
+  that the dataset has additional data limitations.
 </p>
 
-<h3>Soho Cholera</h3>
+<h3>Cartogram Data</h3>
 <p>
-  Where were the highest concentrations of cholera cases located in relation to the public water pumps in Soho?
+  For the cartogram, I used the LAB02_state-votes-2016.csv file supplied with 
+  the lab. It was created by aggregating the election_2016 data to the state 
+  level. The repeated Alaska values were corrected in this file, but the 
+  remaining differences between the dataset totals and the certified national 
+  results were intentionally left unchanged. The cartogram uses Votes_total 
+  to size the states and Pct_DEM to represent the Democratic vote share.
 </p>
+   <h2>The method</h2>
 
-  <h2>The data</h2>
-
-<h3>China Layers</h3>
+<h3>2016 U.S. Presidential Election</h3>
 <p>
-  I used the China Layers teaching web map hosted by Esri. It includes World Countries (Generalized), China Admin, China Rivers, China Roads, and World Cities. One provenance issue is that the World Cities layer gives Chongqing a population of about 12.5 million from UN-Habitat, representing the built-up agglomeration, while the municipality has about 32 million people. The China Admin layer also contains 63 polygons even though China has 34 province-level units, because some units are represented by multiple polygons.
-</p>
-
-<h3>Soho Cholera</h3>
-<p>
-  I used the Soho cholera teaching web map in ArcGIS Online. The main layers I worked with were Cholera cases by address, Public water pumps, and Snow_Map. The cholera data includes the Num_Cases attribute, which shows the number of cases recorded at each address. One limitation of this historical data is that the records and locations may not be complete or fully accurate, so the map should not be treated as a perfect record of the outbreak.
-</p>
-    <h2>The method</h2>
-
-<h3>China Layers</h3>
-<p>
-  For the China map, I worked with several feature layers in ArcGIS Online, including cities, roads, rivers, and administrative boundaries. I changed the symbols and sizes of the cities, used a filter to work with Chongqing, added key locations with a sketch layer, and compared different basemaps. I also measured the area of Chongqing and compared my measurement with its official area.
-</p>
-
-<h3>Soho Cholera</h3>
-<p>
-  For the Soho analysis, I used weighted kernel density estimation in ArcGIS Online. I weighted the cholera case points by Num_Cases so that addresses with more cases had more influence on the heat map. I changed the bandwidth using the unlabelled Area of influence slider and tested three positions: far left, middle, and far right. I then compared the three maps to see how the location and size of the hottest area changed.
+  I used four different mapping techniques to represent the same election data. 
+  First, I created a predominant category map using DEM_per and GOP_per. 
+  Second, I used proportional symbols based on Total_Votes to show differences 
+  in voting volume between counties. Third, I calculated standardized Democratic 
+  vote-share scores using z-scores and displayed them with a diverging color 
+  scale centered at z = 0, which represents the average county in the dataset. 
+  Finally, I created a state-level cartogram in go-cart.io, using Votes_total 
+  to determine state size and Pct_DEM to represent Democratic vote share.
 </p>
     <!-- ============================================================
          YOUR MAP
@@ -105,42 +112,56 @@
     and John Snow's historical map of the area.
   </figcaption>
 </figure>
-  <h2>What I found</h2>
+       
+<h2>What I found</h2>
 
-<h3>China Layers</h3>
+<h3>2016 U.S. Presidential Election</h3>
 <p>
-  I found that China's major cities are mainly concentrated in the eastern part of the country, where the road network is also much denser. The map also helped me see how rivers, cities, and roads relate to the administrative boundaries. The Chongqing exercise showed that the result also depends on the unit being used. The World Cities data gives Chongqing a population of about 12.5 million for the built-up agglomeration, while about 32 million refers to the whole municipality.
+  I found that the same election data can look very different depending on the 
+  mapping method. The classification test showed that quantile made high Democratic 
+  vote shares appear more widespread, while equal interval concentrated the highest 
+  values in far fewer counties. The proportional symbol map showed voting volume 
+  more clearly because counties with more total votes had larger symbols. The 
+  z-score map showed how each county's Democratic vote share differed from the 
+  average county. Finally, the cartogram emphasized states with more total votes 
+  by making them larger. Together, these maps showed that mapping choices strongly 
+  affect which patterns are visually emphasized.
 </p>
-
-<h3>Soho Cholera</h3>
-<p>
-  The sensitivity test showed that the result changed depending on the area of influence. At the far-left setting, there were several small hotspots and no clear overall centre. At the middle setting, the cases formed a clearer central hotspot, with the 43 Broadwick Street pump nearest the centre. At the far-right setting, 43 Broadwick Street was still nearest the centre, but the pattern was too smoothed to identify a clear hotspot. Therefore, the conclusion about 43 Broadwick Street was clear at two of the three settings, showing that the result is sensitive to the bandwidth.
-</p>
-
-   <h2>What this does not show</h2>
+       
+ <h2>What this does not show</h2>
 
 <div class="limits">
 
-  <h3>China Layers</h3>
+  <h3>2016 U.S. Presidential Election</h3>
   <p>
-    The map does not show every detail about China's cities, roads, rivers, or administrative areas. Some boundaries are generalized, so measurements from the map may be different from official measurements. The Chongqing example also shows why the unit matters: the built-up agglomeration and the whole municipality have different boundaries and populations.
+    These maps do not provide a complete or perfectly accurate picture of the 
+    election. The dataset has important limitations. Alaska appears in 28 rows 
+    with the same statewide results repeated, which would greatly inflate its 
+    totals if the rows were simply summed. Even after accounting for this issue, 
+    the national totals in the dataset do not match the certified election totals.
   </p>
 
-  <h3>Soho Cholera</h3>
   <p>
-    The heat map does not prove that the 43 Broadwick Street pump caused the cholera outbreak. It only shows the spatial concentration of reported cases. The result also depends on the chosen bandwidth, and the historical records may be incomplete or inaccurate. Other factors that could have influenced where cholera cases occurred are also not shown.
-  </p>
-
-  <p>
-    <strong>AI use:</strong> I used ChatGPT only to check that the HTML code
-    I wrote and edited was correct, as I have limited experience with coding.
-    I verified the result by opening the published page and checking that
-    everything displayed and worked correctly. The analysis, map settings,
-    and interpretation are my own.
+    The maps are also affected by visualization choices. Different classification 
+    methods can make the same vote-share data appear either more widespread or 
+    more concentrated. A raw-count map can emphasize places with more voters, 
+    while a rate map shows the share of votes instead. Proportional symbols reduce 
+    the influence of geographic area but can overlap in densely populated areas. 
+    The z-score map shows how counties differ from the average county, not from a 
+    50–50 vote split. Finally, the cartogram changes the geographic size and shape 
+    of states in order to emphasize voting volume, so it should not be interpreted 
+    as an accurate representation of physical geography.
   </p>
 
 </div>
 
+<p>
+  <strong>AI use:</strong> I used ChatGPT only to check that the HTML code
+  I wrote and edited was correct, as I have limited experience with coding.
+  I verified the result by opening the published page and checking that
+  everything displayed and worked correctly. The analysis, map settings,
+  and interpretation are my own.
+</p>
     <a class="back" href="../index.html#labs">← Back to all labs</a>
 
   </div>
