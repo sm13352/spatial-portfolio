@@ -51,16 +51,15 @@
 
 <h3>2016 U.S. Presidential Election</h3>
 <p>
-  I used the election_2016 layer in ArcGIS Online, published by
-  [ADD PUBLISHER] and available at [ADD LAYER LINK]. The dataset contains
-  3,139 county records. I found several data-quality problems. The DEM_votes
-  field is empty, while votes_DEM contains the Democratic vote counts.
-  The fields displayed as % DEM and % GOP contain proportions rather than
-  percentage-point values, so a value such as 0.71 represents about 71%.
-  Alaska also appears in 28 rows with identical statewide election values,
-  meaning that simply summing the rows would count Alaska repeatedly.
-  Even after accounting for the Alaska duplication, the totals in the layer
-  do not reconcile with the certified national results.
+  I used the election_2016 layer provided for the lab in ArcGIS Online.
+  The dataset contains 3,139 county records. I found several data-quality
+  problems. The DEM_votes field is empty, while votes_DEM contains the
+  Democratic vote counts. The fields displayed as % DEM and % GOP contain
+  proportions rather than percentage-point values, so a value such as 0.71
+  represents about 71%. Alaska also appears in 28 rows with identical statewide
+  election values, meaning that simply summing the rows would count Alaska
+  repeatedly. Even after accounting for the Alaska duplication, the totals in
+  the layer do not reconcile with the certified national results.
 </p>
 
 <h3>Cartogram Data</h3>
@@ -82,10 +81,9 @@
   classification sensitivity using five classes and compared equal interval,
   quantile, and natural breaks. Second, I created a proportional-symbol map
   using Total_Votes to control symbol size. Third, I calculated standardized
-  Democratic vote-share scores using the Arcade expression
-  <code>($feature.DEM_per - 0.3174) / 0.1527</code>.
-  These z-scores are relative to the average across all counties in the
-  election_2016 layer, and I used z = 0 as the midpoint of the diverging
+  Democratic vote-share scores using the mean of 0.3174 and standard deviation
+  of 0.1527. These z-scores are relative to the average across all counties in
+  the election_2016 layer, and I used z = 0 as the midpoint of the diverging
   color scale. Finally, I created a state-level cartogram in go-cart.io,
   using Votes_total to determine state area and Pct_DEM to represent
   Democratic vote share.
