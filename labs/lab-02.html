@@ -51,15 +51,16 @@
 
 <h3>2016 U.S. Presidential Election</h3>
 <p>
-  I used the election_2016 layer provided for the lab in ArcGIS Online.
-  The dataset contains 3,139 county records. I found several data-quality
-  problems. The DEM_votes field is empty, while votes_DEM contains the
-  Democratic vote counts. The fields displayed as % DEM and % GOP contain
-  proportions rather than percentage-point values, so a value such as 0.71
-  represents about 71%. Alaska also appears in 28 rows with identical statewide
-  election values, meaning that simply summing the rows would count Alaska
-  repeatedly. Even after accounting for the Alaska duplication, the totals in
-  the layer do not reconcile with the certified national results.
+  I used the election_2016 layer provided for the lab in ArcGIS Online,
+  an Esri mapping platform. The dataset contains 3,139 county records.
+  I found several data-quality problems. The DEM_votes field is empty,
+  while votes_DEM contains the Democratic vote counts. The fields displayed
+  as % DEM and % GOP contain proportions rather than percentage-point values,
+  so a value such as 0.71 represents about 71%. Alaska also appears in 28 rows
+  with identical statewide election values, meaning that simply summing the
+  rows would count Alaska repeatedly. Even after accounting for the Alaska
+  duplication, the totals in the layer do not reconcile with the certified
+  national results.
 </p>
 
 <h3>Cartogram Data</h3>
@@ -72,22 +73,30 @@
   vote share.
 </p>
        
-   <h2>The method</h2>
+  <h2>The method</h2>
 
 <h3>2016 U.S. Presidential Election</h3>
+
 <p>
   I used four mapping techniques to represent the election data. First, I
-  created a predominant-category map using DEM_per and GOP_per. I also tested
+  created a predominant-category map using DEM_per and GOP_per. I tested
   classification sensitivity using five classes and compared equal interval,
   quantile, and natural breaks. Second, I created a proportional-symbol map
   using Total_Votes to control symbol size. Third, I calculated standardized
-  Democratic vote-share scores using the mean of 0.3174 and standard deviation
+  Democratic vote-share scores using a mean of 0.3174 and a standard deviation
   of 0.1527. These z-scores are relative to the average across all counties in
   the election_2016 layer, and I used z = 0 as the midpoint of the diverging
   color scale. Finally, I created a state-level cartogram in go-cart.io,
   using Votes_total to determine state area and Pct_DEM to represent
   Democratic vote share.
 </p>
+
+<p><strong>Arcade expression used for the z-score:</strong></p>
+
+<pre><code>var mean = 0.3174;
+var sd = 0.1527;
+
+return ($feature.DEM_per - mean) / sd;</code></pre>
     <!-- ============================================================
          YOUR MAP
          Two options:
@@ -114,8 +123,8 @@
   </iframe>
 
   <figcaption>
-    Map 1 — Predominant category map showing county-level patterns
-    in the 2016 U.S. presidential election.
+   Map 1 — Predominant category map. Hue shows the predominant
+Democratic or Republican vote-share proportion at the county level.
   </figcaption>
 </figure>
 
@@ -128,8 +137,8 @@
     style="width:100%; display:block;">
 
   <figcaption>
-    Map 2 — Proportional symbol map. Symbol size represents Total_Votes
-    at the county level.
+   Map 2 — Proportional symbol map. Symbol size represents Total_Votes,
+measured as votes cast per county.
   </figcaption>
 </figure>
 
@@ -156,10 +165,8 @@
     style="width:100%; display:block;">
 
   <figcaption>
-    Map 3 — Standardised score map. Color shows how far each county's
-    Democratic vote share is above or below the average U.S. county,
-    measured in standard deviations. The midpoint, z = 0, represents
-    an average county with about 31.7% Democratic vote share.
+   Map 3 — Standardised score map. Values are county-level z-scores,
+measured in standard deviations from the average U.S. county.
   </figcaption>
 </figure>
 
@@ -214,8 +221,8 @@
   </iframe>
 
   <figcaption>
-    Map 4 — Cartogram. State area represents total votes cast,
-    while color represents Democratic vote share.
+   Map 4 — Cartogram. State area represents total votes cast, while
+color represents Democratic vote share.
   </figcaption>
 </figure>       
 <h2>What I found</h2>
