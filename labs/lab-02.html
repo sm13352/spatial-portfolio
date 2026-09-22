@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab 01 · Sazhida Mukanbetkaliyeva</title>
+
+<!-- Note the ../ — this page is inside the labs folder, so it has to
+     look one level up to find the stylesheet. -->
+<link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Sazhida Mukanbetkaliyeva</a>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../index.html#labs">Labs</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<article class="entry">
+  <div class="wrap wrap-narrow">
+
+    <p class="kicker">Lab 01 · September 2026</p>
+
+    <!-- EDIT THIS: a title that says what you found, not what you did.
+         "Where the metro does not go" beats "Lab 1 report". -->
+    <h1>Lab 01</h1>
+
+    <!-- ============================================================
+         The six parts. Every entry in this course has all six.
+         Do not delete a heading — if a section is thin, that is
+         information too.
+         ============================================================ -->
+
+   <h2>The question</h2>
+
+<h3>China Layers</h3>
+<p>
+  Where are China's major cities, roads, and rivers located in relation to its administrative boundaries?
+</p>
+
+<h3>Soho Cholera</h3>
+<p>
+  Where were the highest concentrations of cholera cases located in relation to the public water pumps in Soho?
+</p>
+
+  <h2>The data</h2>
+
+<h3>China Layers</h3>
+<p>
+  I used the China Layers teaching web map hosted by Esri. It includes World Countries (Generalized), China Admin, China Rivers, China Roads, and World Cities. One provenance issue is that the World Cities layer gives Chongqing a population of about 12.5 million from UN-Habitat, representing the built-up agglomeration, while the municipality has about 32 million people. The China Admin layer also contains 63 polygons even though China has 34 province-level units, because some units are represented by multiple polygons.
+</p>
+
+<h3>Soho Cholera</h3>
+<p>
+  I used the Soho cholera teaching web map in ArcGIS Online. The main layers I worked with were Cholera cases by address, Public water pumps, and Snow_Map. The cholera data includes the Num_Cases attribute, which shows the number of cases recorded at each address. One limitation of this historical data is that the records and locations may not be complete or fully accurate, so the map should not be treated as a perfect record of the outbreak.
+</p>
+    <h2>The method</h2>
+
+<h3>China Layers</h3>
+<p>
+  For the China map, I worked with several feature layers in ArcGIS Online, including cities, roads, rivers, and administrative boundaries. I changed the symbols and sizes of the cities, used a filter to work with Chongqing, added key locations with a sketch layer, and compared different basemaps. I also measured the area of Chongqing and compared my measurement with its official area.
+</p>
+
+<h3>Soho Cholera</h3>
+<p>
+  For the Soho analysis, I used weighted kernel density estimation in ArcGIS Online. I weighted the cholera case points by Num_Cases so that addresses with more cases had more influence on the heat map. I changed the bandwidth using the unlabelled Area of influence slider and tested three positions: far left, middle, and far right. I then compared the three maps to see how the location and size of the hottest area changed.
+</p>
+    <!-- ============================================================
+         YOUR MAP
+         Two options:
+
+         1. An image. Export a PNG from ArcGIS or QGIS, put it in this
+            labs folder, and change the src below to your filename
+            (for example src="map-01.png").
+
+         2. A live web map. Publish it in ArcGIS Online, choose Share,
+            then Embed, and paste the src URL into the <iframe> line.
+
+         Delete whichever one you are not using.
+         ============================================================ -->
+    <figure>
+  <iframe src="https://www.arcgis.com/apps/Embed/index.html?webmap=737b3a862f6442bb9dc0b1dc8c91589c"
+          title="China Layers web map" loading="lazy"></iframe>
+  <figcaption>
+         China Layers map showing major cities, roads, rivers, administrative boundaries, and key locations in China.
+      </figcaption>
+    </figure>
+<figure>
+  <iframe
+    src="https://www.arcgis.com/apps/Embed/index.html?webmap=d10f31c89e8845ae975fe3ef12d57317"
+    title="Soho cholera web map"
+    loading="lazy">
+  </iframe>
+
+  <figcaption>
+    Soho cholera map showing cholera cases by address, public water pumps,
+    and John Snow's historical map of the area.
+  </figcaption>
+</figure>
+  <h2>What I found</h2>
+
+<h3>China Layers</h3>
+<p>
+  I found that China's major cities are mainly concentrated in the eastern part of the country, where the road network is also much denser. The map also helped me see how rivers, cities, and roads relate to the administrative boundaries. The Chongqing exercise showed that the result also depends on the unit being used. The World Cities data gives Chongqing a population of about 12.5 million for the built-up agglomeration, while about 32 million refers to the whole municipality.
+</p>
+
+<h3>Soho Cholera</h3>
+<p>
+  The sensitivity test showed that the result changed depending on the area of influence. At the far-left setting, there were several small hotspots and no clear overall centre. At the middle setting, the cases formed a clearer central hotspot, with the 43 Broadwick Street pump nearest the centre. At the far-right setting, 43 Broadwick Street was still nearest the centre, but the pattern was too smoothed to identify a clear hotspot. Therefore, the conclusion about 43 Broadwick Street was clear at two of the three settings, showing that the result is sensitive to the bandwidth.
+</p>
+
+   <h2>What this does not show</h2>
+
+<div class="limits">
+
+  <h3>China Layers</h3>
+  <p>
+    The map does not show every detail about China's cities, roads, rivers, or administrative areas. Some boundaries are generalized, so measurements from the map may be different from official measurements. The Chongqing example also shows why the unit matters: the built-up agglomeration and the whole municipality have different boundaries and populations.
+  </p>
+
+  <h3>Soho Cholera</h3>
+  <p>
+    The heat map does not prove that the 43 Broadwick Street pump caused the cholera outbreak. It only shows the spatial concentration of reported cases. The result also depends on the chosen bandwidth, and the historical records may be incomplete or inaccurate. Other factors that could have influenced where cholera cases occurred are also not shown.
+  </p>
+
+  <p>
+    <strong>AI use:</strong> I used ChatGPT only to check that the HTML code
+    I wrote and edited was correct, as I have limited experience with coding.
+    I verified the result by opening the published page and checking that
+    everything displayed and worked correctly. The analysis, map settings,
+    and interpretation are my own.
+  </p>
+
+</div>
+
+    <a class="back" href="../index.html#labs">← Back to all labs</a>
+
+  </div>
+</article>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap wrap-narrow">
+    <p>Sazhida Mukanbetkaliyeva · SOCS-SHU 205 · NYU Shanghai · Fall 2026</p>
+  </div>
+</footer>
+
+</body>
+</html>
