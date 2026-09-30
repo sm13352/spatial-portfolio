@@ -53,18 +53,21 @@
        THE DATA
        ============================================================ -->
 
- <h2>The data</h2>
+<h2>The data</h2>
 
 <p>
   I used the <strong>Soberanes_Perimeter</strong> layer published by
   <strong>Teach_with_GIS</strong> in ArcGIS Online.
-  <a href="PASTE-LAYER-LINK-HERE" target="_blank">View source layer ↗</a>
+  <a href="https://www.arcgis.com/apps/mapviewer/index.html?layers=82f8ddd0b40b49faa142ced59a569b8d"
+     target="_blank">
+    Source layer ↗
+  </a>
 </p>
 
 <p>
-  For satellite imagery, I used the <strong>Landsat 8–9 archive</strong>
-  in Esri Landsat Explorer. I compared a pre-fire acquisition from
-  <strong>20 June 2016</strong> with a post-fire acquisition from
+  For satellite imagery, I used the <strong>Landsat 8–9 mission</strong>
+  in Esri Landsat Explorer. I compared a pre-fire image from
+  <strong>20 June 2016</strong> with a post-fire image from
   <strong>26 October 2016</strong>.
 </p>
 
@@ -73,16 +76,16 @@
   for the terrain and slope analysis.
 </p>
 
-<div class="note">
+<p>
   The perimeter coordinate system was not shown directly in the map interface.
-  I found it in the service definition as
+  I found it only in the service definition as
   <strong>EPSG:3857 — WGS 84 / Pseudo-Mercator (Web Mercator)</strong>.
-</div>
+</p>
 
 <p>
   The geometry also contains <strong>686 rings smaller than 900 m²</strong>,
-  the area of one 30 m × 30 m Landsat cell. This means some boundary detail
-  is finer than the source imagery could actually observe.
+  which is smaller than one 30 m × 30 m Landsat cell. This shows that some
+  of the boundary detail is finer than the source imagery could actually observe.
 </p>
   <!-- ============================================================
        THE METHOD
