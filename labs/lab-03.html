@@ -554,10 +554,6 @@ return 'planar   ' + Round(planar, 3) + ' km2'
        WHAT THIS DOES NOT SHOW
        ============================================================ -->
 
- <!-- ============================================================
-     WHAT THIS DOES NOT SHOW
-     ============================================================ -->
-
 <h2>What this does not show</h2>
 
 <p>
@@ -574,16 +570,19 @@ return 'planar   ' + Round(planar, 3) + ' km2'
 <p>
   The Landsat imagery has a source resolution of
   <strong>30 m × 30 m</strong>. One of the narrowest burned features I
-  measured was about <strong>58.39 m wide</strong>, or only about
-  <strong>1.95 Landsat cells</strong>. This means the feature is visible,
-  but its exact width and boundary remain uncertain.
+  measured was about <strong>58.39 m wide</strong>, or approximately
+  <strong>1.95 Landsat cells</strong>. This suggests that the feature is
+  probably real rather than a single-cell artefact, but its exact width
+  and boundary remain uncertain because it is represented by only about
+  two Landsat cells.
 </p>
 
 <p>
   The perimeter geometry also contains
-  <strong>686 rings smaller than 900 m²</strong>, which is smaller than
-  one 30 m × 30 m Landsat cell. Therefore, some of the detailed geometry
-  is finer than the source imagery could actually observe.
+  <strong>686 rings smaller than 900 m²</strong>.
+  Since <strong>900 m² is the area of one 30 m × 30 m Landsat cell</strong>,
+  these rings contain detail finer than the source imagery could actually
+  observe.
 </p>
 
 
@@ -594,22 +593,22 @@ return 'planar   ' + Round(planar, 3) + ' km2'
 <p>
   Using the two elevation profiles, I estimated average slopes of about
   <strong>21.55°</strong> and <strong>22.05°</strong>. Applying the
-  slope correction produced estimated surface areas of approximately
+  slope correction produced surface areas of approximately
   <strong>574.3–576.3 km²</strong>, compared with the
   <strong>534.182 km²</strong> planimetric California Albers area.
 </p>
 
 <p>
-  This should be treated as a <strong>lower-bound estimate</strong>.
-  The calculation uses only two profiles and average slopes, so it cannot
-  capture every local ridge, valley, and change in terrain across the
-  entire burned area.
+  This should be treated as a <strong>lower bound</strong>, not an exact
+  surface-area estimate. Using an average slope in the cosine correction
+  understates the true surface area, so the actual burned ground area may
+  be larger.
 </p>
 
 
 <!-- GEOID MODEL -->
 
-<h3>Geoid model uncertainty</h3>
+<h3>Geoid model spread</h3>
 
 <p>
   Vertical measurements also depend on the geoid model used to convert
@@ -632,10 +631,10 @@ return 'planar   ' + Round(planar, 3) + ' km2'
 </figure>
 
 <p>
-  At the Soberanes Fire, choosing a different geoid model changes the
-  vertical correction by up to about <strong>1.78 m</strong>.
-  For terrain or runoff analysis, the vertical reference and geoid model
-  therefore need to be stated explicitly.
+  For the height conversion, I used <strong>EGM2008</strong>.
+  At the Soberanes Fire, the different geoid models vary by up to
+  <strong>1.7803 m</strong>, so the vertical reference and geoid model
+  should be stated when using elevation for terrain or runoff analysis.
 </p>
 
 
@@ -650,7 +649,9 @@ return 'planar   ' + Round(planar, 3) + ' km2'
   lab instructions. The measurements, screenshots, and interpretation are
   my own.
 </p>
-  <a class="back" href="../index.html#labs">← Back to all labs</a>
+
+
+<a class="back" href="../index.html#labs">← Back to all labs</a>
 
 </div>
 
