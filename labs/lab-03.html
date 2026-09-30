@@ -431,10 +431,6 @@ return 'planar   ' + Round(planar, 3) + ' km2'
 
 </div>
 
-  <!-- ============================================================
-       WHAT I FOUND
-       ============================================================ -->
-
 <!-- ============================================================
      WHAT I FOUND
      ============================================================ -->
@@ -443,15 +439,15 @@ return 'planar   ' + Round(planar, 3) + ' km2'
 
 <p>
   <strong>
-    Areas measured geodetically on the WGS 84 ellipsoid.
-    Source geometry stored in EPSG:3857 (Web Mercator);
-    planar areas in that frame are inflated by sec²(φ)
+    Areas measured geodetically on the WGS 84 ellipsoid.<br>
+    Source geometry stored in EPSG:3857 (Web Mercator);<br>
+    planar areas in that frame are inflated by sec^2(phi)<br>
     and are reported here only for comparison.
   </strong>
 </p>
 
 
-<!-- FRAMES TABLE -->
+<!-- FRAMES COMPARISON -->
 
 <h3>Frames comparison</h3>
 
@@ -467,7 +463,7 @@ return 'planar   ' + Round(planar, 3) + ' km2'
     style="width:100%; height:auto;">
 
   <figcaption>
-    <strong>Table 1 · Frames comparison.</strong>
+    <strong>Frames comparison.</strong>
     Area measurements of the same fire perimeter using Web Mercator,
     WGS 84 geodetic measurement, hand tracing, UTM Zone 10N,
     California Albers, and the published incident figure.
@@ -500,7 +496,7 @@ return 'planar   ' + Round(planar, 3) + ' km2'
     style="width:100%; height:auto;">
 
   <figcaption>
-    <strong>Table 2 · Latitude sensitivity.</strong>
+    <strong>Latitude sensitivity.</strong>
     Predicted Web Mercator areal inflation at different latitudes.
     At the Soberanes Fire latitude of
     <strong>36.326°</strong>, the predicted inflation is
@@ -509,11 +505,11 @@ return 'planar   ' + Round(planar, 3) + ' km2'
 </figure>
 
 <p>
-  For Soberanes, the predicted Web Mercator area factor was
-  <strong>1.5406</strong>, while the measured planar-to-geodetic ratio
+  For the Soberanes Fire, the predicted Web Mercator area factor was
+  <strong>1.5406</strong>, while my measured planar-to-geodetic ratio
   was <strong>1.5433</strong>.
-  The close agreement shows that the large difference between the two
-  area measurements is mainly caused by the projection.
+  Their close agreement shows that the large difference between the
+  measurements is mainly caused by projection distortion.
 </p>
 
 
@@ -522,8 +518,8 @@ return 'planar   ' + Round(planar, 3) + ' km2'
 <h3>Sensitivity to raster resolution</h3>
 
 <p>
-  I also tested how the uncertainty around the fire boundary changes
-  with raster cell size.
+  I also tested how uncertainty around the fire boundary changes with
+  raster cell size.
 </p>
 
 <figure>
@@ -533,7 +529,7 @@ return 'planar   ' + Round(planar, 3) + ' km2'
     style="width:100%; height:auto;">
 
   <figcaption>
-    <strong>Table 3 · Raster-resolution sensitivity.</strong>
+    <strong>Raster-resolution sensitivity.</strong>
     Estimated boundary uncertainty for different raster cell sizes.
     For Landsat 8–9 at <strong>30 m</strong> resolution, the uncertainty
     band is approximately <strong>13.26 km²</strong>, or
@@ -542,7 +538,7 @@ return 'planar   ' + Round(planar, 3) + ' km2'
 </figure>
 
 <p>
-  For the Soberanes Fire, the Web Mercator projection effect
+  For this fire, the Web Mercator projection effect
   (<strong>about 54%</strong>) was much larger than the uncertainty
   associated with the 30 m Landsat grid
   (<strong>about 2.5%</strong>).
