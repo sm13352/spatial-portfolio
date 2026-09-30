@@ -91,20 +91,21 @@
        THE METHOD
        ============================================================ -->
 
-  <h2>The method</h2>
+ <h2>The method</h2>
 
-  <p>
-    I measured the same Soberanes Fire perimeter using several different
-    frames. I compared planar measurement in Web Mercator with geodetic
-    measurement on the WGS 84 ellipsoid, a hand-traced measurement,
-    UTM Zone 10N, and California Albers.
-  </p>
+<p>
+  I measured the same Soberanes Fire perimeter in several different frames.
+  In ArcGIS Map Viewer, <code>Area()</code> measured the polygon planarly
+  in its stored <strong>EPSG:3857 Web Mercator</strong> frame, while
+  <code>AreaGeodetic()</code> measured the same polygon geodetically on the
+  <strong>WGS 84 ellipsoid</strong>.
+</p>
 
-  <p>
-    In ArcGIS Map Viewer, I used the following Arcade expression:
-  </p>
+<p>
+  I used the following Arcade expression:
+</p>
 
-  <pre><code>var planar = Area($feature, 'square-kilometers');
+<pre><code>var planar = Area($feature, 'square-kilometers');
 var globe  = AreaGeodetic($feature, 'square-kilometers');
 var acres  = AreaGeodetic($feature, 'acres');
 var rings  = Count(Geometry($feature).rings);
@@ -119,45 +120,100 @@ return 'planar   ' + Round(planar, 3) + ' km2'
    + TextFormatting.NewLine
    + 'rings    ' + rings;</code></pre>
 
-  <p>
-    To predict Web Mercator distortion, I used:
-  </p>
+<figure>
+  <img
+    src="arcade.png"
+    alt="Arcade expression comparing planar and geodetic area measurements for the Soberanes Fire">
 
-  <p>
-    <strong>Web Mercator area factor = sec²(latitude)</strong>
-  </p>
+  <figcaption>
+    Arcade expression comparing the
+    <strong>Web Mercator planar area</strong> with the
+    <strong>WGS 84 geodetic area</strong>.
+    The output gave 824.791 km² planar and 534.428 km² geodetic.
+  </figcaption>
+</figure>
 
-  <p>
-    To estimate the uncertainty created by raster cell size, I used:
-  </p>
+<p>
+  The main measurement frames I compared were:
+</p>
 
-  <p>
-    <strong>Uncertainty band = perimeter × cell size</strong>
-  </p>
+<ul>
+  <li>
+    <strong>824.791 km²</strong> — planar measurement in
+    <strong>EPSG:3857 Web Mercator</strong>.
+  </li>
 
-  <p>
-    For terrain, I drew two elevation profiles in Scene Viewer and used:
-  </p>
+  <li>
+    <strong>534.428 km²</strong> — geodetic measurement on the
+    <strong>WGS 84 ellipsoid</strong>.
+  </li>
 
-  <p>
-    <strong>Surface area factor = 1 / cos(average slope)</strong>
-  </p>
+  <li>
+    <strong>514.03 km²</strong> and <strong>530.12 km²</strong> —
+    hand-traced measurements made with the ArcGIS
+    <strong>Measurement tool</strong>, which measures geodetically.
+  </li>
 
-  <p>
-    For vertical height, I used the <strong>EGM2008 geoid model</strong>.
-    The conversion was:
-  </p>
+  <li>
+    <strong>533.929 km²</strong> — planar area in
+    <strong>UTM Zone 10N</strong>.
+  </li>
 
-  <p>
-    <strong>H = h − N</strong>
-  </p>
+  <li>
+    <strong>534.182 km²</strong> — planar area in
+    <strong>California Albers</strong>, an equal-area projection.
+  </li>
+</ul>
 
-  <p>
-    where <strong>h</strong> is ellipsoidal height,
-    <strong>H</strong> is orthometric height, and
-    <strong>N</strong> is geoid separation.
-  </p>
+<p>
+  I also traced the fire perimeter manually to see how much the result changed
+  when the boundary was drawn roughly by hand.
+</p>
 
+<div class="figure-grid">
+
+  <figure>
+    <img
+      src="1.png"
+      alt="First hand-traced measurement of the Soberanes Fire showing an area of 514.03 square kilometres">
+
+    <figcaption>
+      <strong>First hand-traced attempt.</strong>
+      Geodetic area measured with the ArcGIS Measurement tool:
+      <strong>514.03 km²</strong>.
+    </figcaption>
+  </figure>
+
+  <figure>
+    <img
+      src="2.png"
+      alt="Second hand-traced measurement of the Soberanes Fire showing an area of 530.12 square kilometres">
+
+    <figcaption>
+      <strong>Second hand-traced attempt.</strong>
+      Geodetic area measured with the ArcGIS Measurement tool:
+      <strong>530.12 km²</strong>.
+    </figcaption>
+  </figure>
+
+</div>
+
+<p>
+  To test raster-resolution sensitivity, I compared the fire boundary with
+  the <strong>30 m Landsat cells</strong>. For terrain, I drew two elevation
+  profiles in Scene Viewer and calculated the surface-area factor using
+  <strong>1 / cos(average slope)</strong>.
+</p>
+
+<p>
+  For vertical height, I used the <strong>EGM2008 geoid model</strong>
+  from the GeographicLib geoid calculator. I converted ellipsoidal height
+  to orthometric height using:
+</p>
+
+<p>
+  <strong>H = h − N</strong>
+</p>
 
   <!-- ============================================================
        THE MAP
