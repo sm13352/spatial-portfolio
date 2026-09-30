@@ -7,6 +7,20 @@
 <title>Lab 03 · One Perimeter, Three Answers · Sazhida Mukanbetkaliyeva</title>
 
 <link rel="stylesheet" href="../style.css">
+  <head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Lab 03 · One Perimeter, Three Answers · Sazhida Mukanbetkaliyeva</title>
+
+<link rel="stylesheet" href="../style.css">
+
+<script type="module"
+  src="https://js.arcgis.com/5.1/embeddable-components/">
+</script>
+
+</head>
 </head>
 
 <body>
@@ -221,86 +235,226 @@ return 'planar   ' + Round(planar, 3) + ' km2'
 
   <h2>The map</h2>
 
-  <p>
-    <a href="PASTE-YOUR-WEB-MAP-LINK-HERE" target="_blank">
-      Open my Lab 3 web map
-    </a>
-  </p>
-
-  <p>
-    <a href="PASTE-YOUR-SCENE-LINK-HERE" target="_blank">
-      Open my Lab 3 3D scene
-    </a>
-  </p>
+<p>
+  The figures below show the Soberanes Fire through satellite imagery,
+  raster resolution, the mapped fire perimeter, and the terrain surface.
+</p>
 
 
-  <!-- FIGURE 1 -->
+<!-- ============================================================
+     FIGURE 1
+     ============================================================ -->
+
+<h3>Figure 1 · Before and after the fire</h3>
+
+<figure>
+  <img
+    src="figure1-left-right.png"
+    alt="Landsat swipe comparison showing the Soberanes Fire area before and after the fire">
+
+  <figcaption>
+    <strong>Figure 1.</strong>
+    Landsat 8–9 Short-wave IR comparison of the Soberanes Fire area.
+    The left side shows the pre-fire image from
+    <strong>20 June 2016</strong>, while the right side shows the
+    post-fire image from <strong>26 October 2016</strong>.
+    <strong>Frame:</strong> Landsat raster imagery.
+    <strong>Unit:</strong> 30 m × 30 m cells.
+  </figcaption>
+</figure>
+
+
+<div class="figure-grid">
 
   <figure>
     <img
-      src="lab-03-figure-1.png"
-      alt="Before-and-after Landsat comparison of the Soberanes Fire."
-    >
+      src="figure1-left.png"
+      alt="Pre-fire Landsat image from 20 June 2016">
 
     <figcaption>
-      <strong>Figure 1.</strong>
-      Before-and-after Soberanes Fire comparison using Landsat 8–9
-      Short-wave IR imagery from 20 June 2016 and 26 October 2016.
-      The source raster has 30 m cells.
+      <strong>Pre-fire view.</strong>
+      Landsat 8–9 Short-wave IR image from
+      <strong>20 June 2016</strong>.
+      <strong>Frame:</strong> Landsat raster imagery.
+      <strong>Unit:</strong> 30 m × 30 m cells.
     </figcaption>
   </figure>
 
 
-  <!-- FIGURE 2 -->
+  <figure>
+    <img
+      src="figure1-right.png"
+      alt="Post-fire Landsat image from 26 October 2016">
+
+    <figcaption>
+      <strong>Post-fire view.</strong>
+      Landsat 8–9 Short-wave IR image from
+      <strong>26 October 2016</strong>.
+      <strong>Frame:</strong> Landsat raster imagery.
+      <strong>Unit:</strong> 30 m × 30 m cells.
+    </figcaption>
+  </figure>
+
+</div>
+
+
+
+<!-- ============================================================
+     FIGURE 2
+     ============================================================ -->
+
+<h3>Figure 2 · The Landsat cells</h3>
+
+<p>
+  I zoomed into the post-fire imagery until the raster structure became visible.
+  Comparing the image with Terrain turned on and off makes the Landsat cell
+  structure easier to see.
+</p>
+
+<div class="figure-grid">
 
   <figure>
     <img
-      src="lab-03-figure-2.png"
-      alt="Close view of Landsat pixels at the Soberanes Fire burn edge."
-    >
+      src="figure2-1.png"
+      alt="Close-up Landsat image with Terrain turned on">
 
     <figcaption>
-      <strong>Figure 2.</strong>
-      Post-fire burn edge viewed in the Landsat raster frame.
-      Each Landsat cell represents approximately
-      <strong>30 m × 30 m</strong> on the ground.
+      <strong>Figure 2-1.</strong>
+      Close-up of the post-fire imagery with
+      <strong>Terrain turned on</strong>.
+      The terrain overlay adds relief and shading, which makes the raster
+      cells appear smoother and less obvious.
+      <strong>Frame:</strong> Landsat raster imagery with terrain overlay.
+      <strong>Unit:</strong> 30 m × 30 m cells.
     </figcaption>
   </figure>
 
 
-  <!-- FIGURE 3 -->
+  <figure>
+    <img
+      src="figure2-2.png"
+      alt="Close-up Landsat image with Terrain turned off showing the raster structure">
+
+    <figcaption>
+      <strong>Figure 2-2.</strong>
+      Close-up with <strong>Terrain turned off</strong>.
+      Without the terrain overlay, the Landsat raster structure becomes
+      easier to see and the image appears more pixelated.
+      The underlying resolution has not changed.
+      <strong>Frame:</strong> Landsat raster imagery.
+      <strong>Unit:</strong> 30 m × 30 m cells.
+    </figcaption>
+  </figure>
+
+</div>
+
+
+
+<!-- ============================================================
+     FIGURE 3
+     ============================================================ -->
+
+<h3>Figure 3 · The mapped fire perimeter</h3>
+
+<p>
+  I then viewed the Soberanes Fire perimeter in ArcGIS Map Viewer.
+  The perimeter is stored in
+  <strong>EPSG:3857 — WGS 84 / Pseudo-Mercator (Web Mercator)</strong>.
+</p>
+
+
+<!-- Save your perimeter screenshot as figure3.png -->
+
+<figure>
+  <img
+    src="figure3.png"
+    alt="Soberanes Fire perimeter displayed as an outline in ArcGIS Map Viewer">
+
+  <figcaption>
+    <strong>Figure 3.</strong>
+    Soberanes Fire perimeter shown as an outline in ArcGIS Map Viewer.
+    <strong>Frame:</strong> EPSG:3857 — WGS 84 / Pseudo-Mercator
+    (Web Mercator).
+    <strong>Unit:</strong> metres.
+  </figcaption>
+</figure>
+
+
+<h4>Interactive web map</h4>
+
+<figure>
+
+  <arcgis-embedded-map
+    style="height:600px; width:100%;"
+    item-id="203de5e854b34246b9d1dbb0a663a7c0"
+    theme="light"
+    time-zone-label-enabled
+    center="-121.73507085603305,36.34285559514098"
+    scale="1155581.108577"
+    portal-url="https://www.arcgis.com">
+  </arcgis-embedded-map>
+
+  <figcaption>
+    Interactive ArcGIS web map of the Soberanes Fire perimeter.
+    <strong>Frame:</strong> EPSG:3857 Web Mercator.
+    <strong>Unit:</strong> metres.
+  </figcaption>
+
+</figure>
+
+
+
+<!-- ============================================================
+     FIGURE 4
+     ============================================================ -->
+
+<h3>Figure 4 · Terrain and elevation profiles</h3>
+
+<p>
+  I used ArcGIS Scene Viewer to examine how the burned area crosses
+  the mountainous terrain. I drew two elevation profiles across
+  different parts of the fire to compare the average slope.
+</p>
+
+
+<div class="figure-grid">
 
   <figure>
     <img
-      src="lab-03-figure-3.png"
-      alt="Soberanes Fire perimeter shown as an outline in ArcGIS Map Viewer."
-    >
+      src="figure4-1.png"
+      alt="First elevation profile across the Soberanes Fire terrain">
 
     <figcaption>
-      <strong>Figure 3.</strong>
-      Soberanes Fire perimeter displayed as an outline in
-      <strong>EPSG:3857 Web Mercator</strong>.
-      The Landsat source resolution is 30 m.
+      <strong>Figure 4-1 · Profile 1.</strong>
+      First elevation profile across the burned area.
+      The profile had average slopes of
+      <strong>22.1° uphill</strong> and
+      <strong>21.0° downhill</strong>, giving an average slope of
+      approximately <strong>21.55°</strong>.
+      <strong>Frame:</strong> ArcGIS Scene Viewer terrain / elevation surface.
+      <strong>Units:</strong> elevation in feet and slope in degrees.
     </figcaption>
   </figure>
 
 
-  <!-- FIGURE 4 -->
-
   <figure>
     <img
-      src="lab-03-figure-4.png"
-      alt="Three-dimensional view of the Soberanes Fire over mountainous terrain."
-    >
+      src="figure4-2.png"
+      alt="Second elevation profile across the Soberanes Fire terrain">
 
     <figcaption>
-      <strong>Figure 4.</strong>
-      Soberanes Fire perimeter shown over the ArcGIS elevation surface
-      in Scene Viewer. Elevation profiles across this terrain were used
-      to calculate slope in degrees and estimate surface area.
+      <strong>Figure 4-2 · Profile 2.</strong>
+      Second elevation profile across a different part of the burned area.
+      The profile had average slopes of
+      <strong>23.2° uphill</strong> and
+      <strong>20.9° downhill</strong>, giving an average slope of
+      approximately <strong>22.05°</strong>.
+      <strong>Frame:</strong> ArcGIS Scene Viewer terrain / elevation surface.
+      <strong>Units:</strong> elevation in feet and slope in degrees.
     </figcaption>
   </figure>
 
+</div>
 
   <!-- ============================================================
        WHAT I FOUND
