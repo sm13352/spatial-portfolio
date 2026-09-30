@@ -41,27 +41,27 @@
 
    <h2>The question</h2>
 
-<h3>China Layers</h3>
+<h3>One Perimeter, Three Answers</h3>
 <p>
-  Where are China's major cities, roads, and rivers located in relation to its administrative boundaries?
+  How much land burned in the 2016 Soberanes Fire in Big Sur, California, and how does the measured area change depending on projection, raster resolution, and terrain?
 </p>
 
-<h3>Soho Cholera</h3>
-<p>
-  Where were the highest concentrations of cholera cases located in relation to the public water pumps in Soho?
-</p>
 
   <h2>The data</h2>
 
-<h3>China Layers</h3>
 <p>
-  I used the China Layers teaching web map hosted by Esri. It includes World Countries (Generalized), China Admin, China Rivers, China Roads, and World Cities. One provenance issue is that the World Cities layer gives Chongqing a population of about 12.5 million from UN-Habitat, representing the built-up agglomeration, while the municipality has about 32 million people. The China Admin layer also contains 63 polygons even though China has 34 province-level units, because some units are represented by multiple polygons.
+I used the Soberanes_Perimeter layer published by Teach_with_GIS in ArcGIS Online.
+Layer link: [paste your Soberanes_Perimeter link here]
+For satellite imagery, I used the Landsat 8–9 archive in Esri Landsat Explorer. I compared:
+Pre-fire: 20 June 2016
+Post-fire: 26 October 2016
+Cell size: 30 m
+I also used the ArcGIS elevation surface in Scene Viewer to examine the terrain and calculate elevation profiles.
+The perimeter geometry is stored in EPSG:3857, WGS 84 / Pseudo-Mercator, which I found in the service definition rather than directly in the map interface.
+The lab also showed that 686 rings are smaller than 900 m², the area of one Landsat cell, which shows that some of the polygon detail is finer than the source imagery could actually observe.
 </p>
 
-<h3>Soho Cholera</h3>
-<p>
-  I used the Soho cholera teaching web map in ArcGIS Online. The main layers I worked with were Cholera cases by address, Public water pumps, and Snow_Map. The cholera data includes the Num_Cases attribute, which shows the number of cases recorded at each address. One limitation of this historical data is that the records and locations may not be complete or fully accurate, so the map should not be treated as a perfect record of the outbreak.
-</p>
+
     <h2>The method</h2>
 
 <h3>China Layers</h3>
