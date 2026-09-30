@@ -435,226 +435,119 @@ return 'planar   ' + Round(planar, 3) + ' km2'
        WHAT I FOUND
        ============================================================ -->
 
+<!-- ============================================================
+     WHAT I FOUND
+     ============================================================ -->
+
 <h2>What I found</h2>
 
-<div class="note">
+<p>
   <strong>
     Areas measured geodetically on the WGS 84 ellipsoid.
     Source geometry stored in EPSG:3857 (Web Mercator);
-    planar areas in that frame are inflated by sec²(latitude)
+    planar areas in that frame are inflated by sec²(φ)
     and are reported here only for comparison.
   </strong>
-</div>
-
-
-<h3>One perimeter, several areas</h3>
-
-<p>
-  The same Soberanes Fire perimeter produced very different area values
-  depending on the measurement frame.
 </p>
 
-<div class="table-wrap">
 
-<table>
+<!-- FRAMES TABLE -->
 
-<thead>
-<tr>
-  <th>Frame</th>
-  <th>Area</th>
-  <th>Method</th>
-</tr>
-</thead>
-
-<tbody>
-
-<tr>
-  <td>Web Mercator, planar</td>
-  <td>824.791 km²</td>
-  <td>Area()</td>
-</tr>
-
-<tr>
-  <td>WGS 84 ellipsoid, geodetic</td>
-  <td><strong>534.428 km²</strong></td>
-  <td>AreaGeodetic()</td>
-</tr>
-
-<tr>
-  <td>Hand-traced polygon — attempt 1</td>
-  <td>514.03 km²</td>
-  <td>Measurement tool</td>
-</tr>
-
-<tr>
-  <td>Hand-traced polygon — attempt 2</td>
-  <td>530.12 km²</td>
-  <td>Measurement tool</td>
-</tr>
-
-<tr>
-  <td>Published incident figure</td>
-  <td>534.699 km²</td>
-  <td>132,127 acres converted</td>
-</tr>
-
-<tr>
-  <td>UTM Zone 10N, planar</td>
-  <td>533.929 km²</td>
-  <td>Lab reference</td>
-</tr>
-
-<tr>
-  <td>California Albers, planar</td>
-  <td>534.182 km²</td>
-  <td>Lab reference</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
+<h3>Frames comparison</h3>
 
 <p>
-  I would publish the <strong>WGS 84 geodetic area of 534.428 km²</strong>.
-  It avoids the large area distortion produced by Web Mercator and is very
-  close to the published incident figure, UTM Zone 10N, and California Albers
-  results.
+  The same Soberanes Fire perimeter produced different area values
+  depending on the coordinate frame and measurement method.
 </p>
 
+<figure>
+  <img
+    src="frames-table.png"
+    alt="Table comparing Soberanes Fire area measurements in different coordinate frames"
+    style="width:100%; height:auto;">
+
+  <figcaption>
+    <strong>Table 1 · Frames comparison.</strong>
+    Area measurements of the same fire perimeter using Web Mercator,
+    WGS 84 geodetic measurement, hand tracing, UTM Zone 10N,
+    California Albers, and the published incident figure.
+  </figcaption>
+</figure>
+
+<p>
+  I would publish the
+  <strong>WGS 84 geodetic area of 534.428 km²</strong>.
+  It avoids the large area distortion produced by Web Mercator and is
+  very close to the published incident figure of
+  <strong>534.699 km²</strong>, the UTM Zone 10N result of
+  <strong>533.929 km²</strong>, and the California Albers result of
+  <strong>534.182 km²</strong>.
+</p>
+
+
+<!-- LATITUDE SENSITIVITY -->
 
 <h3>Sensitivity to latitude</h3>
 
 <p>
-  Web Mercator distortion increases as latitude increases.
+  Web Mercator area distortion becomes larger as latitude increases.
 </p>
 
-<div class="table-wrap">
+<figure>
+  <img
+    src="latitude-table.png"
+    alt="Table showing Web Mercator area inflation at different latitudes"
+    style="width:100%; height:auto;">
 
-<table>
-
-<thead>
-<tr>
-  <th>Place</th>
-  <th>Latitude</th>
-  <th>Web Mercator area inflation</th>
-</tr>
-</thead>
-
-<tbody>
-
-<tr>
-  <td>Equator</td>
-  <td>0.000°</td>
-  <td>0.0%</td>
-</tr>
-
-<tr>
-  <td>Gibson Desert, Western Australia</td>
-  <td>−23.285°</td>
-  <td>18.52%</td>
-</tr>
-
-<tr>
-  <td>This campus, Pudong</td>
-  <td>31.162°</td>
-  <td>36.57%</td>
-</tr>
-
-<tr>
-  <td>Madeira, Portugal</td>
-  <td>32.750°</td>
-  <td>41.37%</td>
-</tr>
-
-<tr>
-  <td>Soberanes Fire, California</td>
-  <td>36.326°</td>
-  <td><strong>54.06%</strong></td>
-</tr>
-
-<tr>
-  <td>Fairbanks, Alaska</td>
-  <td>64.840°</td>
-  <td>453.25%</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
+  <figcaption>
+    <strong>Table 2 · Latitude sensitivity.</strong>
+    Predicted Web Mercator areal inflation at different latitudes.
+    At the Soberanes Fire latitude of
+    <strong>36.326°</strong>, the predicted inflation is
+    <strong>54.06%</strong>.
+  </figcaption>
+</figure>
 
 <p>
-  At the Soberanes Fire latitude, the predicted Web Mercator factor was
-  <strong>1.5406</strong>, while my measured planar-to-geodetic ratio was
-  <strong>1.5433</strong>. Their close agreement shows that the distortion
-  is systematic and predictable from latitude.
+  For Soberanes, the predicted Web Mercator area factor was
+  <strong>1.5406</strong>, while the measured planar-to-geodetic ratio
+  was <strong>1.5433</strong>.
+  The close agreement shows that the large difference between the two
+  area measurements is mainly caused by the projection.
 </p>
 
+
+<!-- RASTER RESOLUTION SENSITIVITY -->
 
 <h3>Sensitivity to raster resolution</h3>
 
 <p>
-  I also tested how the estimated uncertainty changes with raster cell size.
+  I also tested how the uncertainty around the fire boundary changes
+  with raster cell size.
 </p>
 
-<div class="table-wrap">
+<figure>
+  <img
+    src="resolution-table.png"
+    alt="Table showing area uncertainty at different raster resolutions"
+    style="width:100%; height:auto;">
 
-<table>
-
-<thead>
-<tr>
-  <th>Sensor</th>
-  <th>Cell size</th>
-  <th>Uncertainty band</th>
-  <th>Share of area</th>
-</tr>
-</thead>
-
-<tbody>
-
-<tr>
-  <td>Sentinel-2</td>
-  <td>10 m</td>
-  <td>4.42 km²</td>
-  <td>0.83%</td>
-</tr>
-
-<tr>
-  <td>Landsat 8–9</td>
-  <td>30 m</td>
-  <td>13.26 km²</td>
-  <td><strong>2.48%</strong></td>
-</tr>
-
-<tr>
-  <td>MODIS</td>
-  <td>250 m</td>
-  <td>110.49 km²</td>
-  <td>20.68%</td>
-</tr>
-
-<tr>
-  <td>Coarse global product</td>
-  <td>500 m</td>
-  <td>220.98 km²</td>
-  <td>41.37%</td>
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
+  <figcaption>
+    <strong>Table 3 · Raster-resolution sensitivity.</strong>
+    Estimated boundary uncertainty for different raster cell sizes.
+    For Landsat 8–9 at <strong>30 m</strong> resolution, the uncertainty
+    band is approximately <strong>13.26 km²</strong>, or
+    <strong>2.48%</strong> of the fire area.
+  </figcaption>
+</figure>
 
 <p>
-  For this fire, the Web Mercator projection effect
-  (<strong>about 54%</strong>) was much larger than the uncertainty from
-  the 30 m Landsat grid (<strong>about 2.5%</strong>).
-  However, with a much coarser sensor, raster resolution can become much
-  more important.
+  For the Soberanes Fire, the Web Mercator projection effect
+  (<strong>about 54%</strong>) was much larger than the uncertainty
+  associated with the 30 m Landsat grid
+  (<strong>about 2.5%</strong>).
+  With coarser imagery, however, raster resolution becomes much more
+  important.
 </p>
 
   <!-- ============================================================
