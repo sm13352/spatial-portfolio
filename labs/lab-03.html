@@ -554,57 +554,102 @@ return 'planar   ' + Round(planar, 3) + ' km2'
        WHAT THIS DOES NOT SHOW
        ============================================================ -->
 
-  <h2>What this does not show</h2>
+ <!-- ============================================================
+     WHAT THIS DOES NOT SHOW
+     ============================================================ -->
 
-  <div class="limits">
+<h2>What this does not show</h2>
 
-    <p>
-      The fire perimeter is limited by the
-      <strong>30 m resolution of the Landsat imagery</strong>.
-      Features close to or smaller than one cell may disappear,
-      occupy an entire cell, or appear more precise in the vector
-      boundary than the satellite could actually observe.
-    </p>
-
-    <p>
-      The terrain calculation is only a <strong>lower bound</strong>.
-      Using one average slope cannot represent every steep and gentle
-      section of the landscape, so the real burned surface area may be
-      larger than 574.3–576.3 km².
-    </p>
-
-    <p>
-      The vertical-height conversion also depends on the geoid model.
-      The three models differed by 1.7803 m at Soberanes, 0.7051 m at
-      the campus, and 1.9648 m at Everest. This means the geoid model
-      used for a height conversion should be stated.
-    </p>
-
-    <p>
-      The three sources of disagreement do not always have the same
-      ranking. At a lower latitude, projection distortion would become
-      smaller. With a coarser sensor or a smaller feature, grid
-      uncertainty could become larger. On steeper terrain, terrain
-      correction could become more important.
-    </p>
-
-  </div>
-
-  <!-- ============================================================
-       AI DISCLOSURE
-       ============================================================ -->
-
-  <h2>AI use</h2>
-
-  <p>
-    I used ChatGPT to help clarify the lab instructions, check my
-    calculations, and check my Arcade and HTML code. I verified the
-    results using ArcGIS outputs, Landsat Explorer, the geoid calculator,
-    and the lab instructions. The measurements, screenshots, and
-    interpretation are my own.
-  </p>
+<p>
+  These measurements still have important limits. The mapped perimeter,
+  terrain correction, and vertical reference all depend on the resolution
+  and models used.
+</p>
 
 
+<!-- RESOLUTION LIMIT -->
+
+<h3>Resolution limit</h3>
+
+<p>
+  The Landsat imagery has a source resolution of
+  <strong>30 m × 30 m</strong>. One of the narrowest burned features I
+  measured was about <strong>58.39 m wide</strong>, or only about
+  <strong>1.95 Landsat cells</strong>. This means the feature is visible,
+  but its exact width and boundary remain uncertain.
+</p>
+
+<p>
+  The perimeter geometry also contains
+  <strong>686 rings smaller than 900 m²</strong>, which is smaller than
+  one 30 m × 30 m Landsat cell. Therefore, some of the detailed geometry
+  is finer than the source imagery could actually observe.
+</p>
+
+
+<!-- SLOPE CORRECTION -->
+
+<h3>Terrain correction is a lower bound</h3>
+
+<p>
+  Using the two elevation profiles, I estimated average slopes of about
+  <strong>21.55°</strong> and <strong>22.05°</strong>. Applying the
+  slope correction produced estimated surface areas of approximately
+  <strong>574.3–576.3 km²</strong>, compared with the
+  <strong>534.182 km²</strong> planimetric California Albers area.
+</p>
+
+<p>
+  This should be treated as a <strong>lower-bound estimate</strong>.
+  The calculation uses only two profiles and average slopes, so it cannot
+  capture every local ridge, valley, and change in terrain across the
+  entire burned area.
+</p>
+
+
+<!-- GEOID MODEL -->
+
+<h3>Geoid model uncertainty</h3>
+
+<p>
+  Vertical measurements also depend on the geoid model used to convert
+  ellipsoidal height to orthometric height.
+</p>
+
+<figure>
+  <img
+    src="geoid-table.png"
+    alt="Comparison of EGM2008, EGM96, and EGM84 geoid values for Soberanes Fire, the campus, and Everest"
+    style="width:100%; height:auto;">
+
+  <figcaption>
+    <strong>Table 4 · Geoid model spread.</strong>
+    Comparison of EGM2008, EGM96, and EGM84.
+    The spread is <strong>1.7803 m</strong> at the Soberanes Fire,
+    <strong>0.7051 m</strong> at the campus, and
+    <strong>1.9648 m</strong> at Everest.
+  </figcaption>
+</figure>
+
+<p>
+  At the Soberanes Fire, choosing a different geoid model changes the
+  vertical correction by up to about <strong>1.78 m</strong>.
+  For terrain or runoff analysis, the vertical reference and geoid model
+  therefore need to be stated explicitly.
+</p>
+
+
+<!-- AI DISCLOSURE -->
+
+<h3>AI disclosure</h3>
+
+<p>
+  I used ChatGPT to clarify parts of the lab instructions, check my
+  calculations, and check my Arcade and HTML code. I verified the results
+  using my ArcGIS outputs, Landsat Explorer, the geoid calculator, and the
+  lab instructions. The measurements, screenshots, and interpretation are
+  my own.
+</p>
   <a class="back" href="../index.html#labs">← Back to all labs</a>
 
 </div>
