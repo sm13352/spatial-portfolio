@@ -3,19 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Lab 03 · Sazhida Mukanbetkaliyeva</title>
 
-<!-- Note the ../ — this page is inside the labs folder, so it has to
-     look one level up to find the stylesheet. -->
+<title>Lab 03 · One Perimeter, Three Answers · Sazhida Mukanbetkaliyeva</title>
+
 <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
+
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="site-head">
   <div class="wrap">
     <a class="brand" href="../index.html">Sazhida Mukanbetkaliyeva</a>
+
     <nav>
       <a href="../index.html">Home</a>
       <a href="../index.html#labs">Labs</a>
@@ -23,133 +24,719 @@
   </div>
 </header>
 
+
 <main id="main">
+
 <article class="entry">
-  <div class="wrap wrap-narrow">
 
-    <p class="kicker">Lab 03 · October 2026</p>
+<div class="wrap wrap-narrow">
 
-    <!-- EDIT THIS: a title that says what you found, not what you did.
-         "Where the metro does not go" beats "Lab 1 report". -->
-    <h1>Lab 03</h1>
+  <p class="kicker">Lab 03 · October 2026</p>
 
-    <!-- ============================================================
-         The six parts. Every entry in this course has all six.
-         Do not delete a heading — if a section is thin, that is
-         information too.
-         ============================================================ -->
+  <h1>One Perimeter, Three Answers</h1>
 
-   <h2>The question</h2>
 
-<h3>One Perimeter, Three Answers</h3>
-<p>
-  How much land burned in the 2016 Soberanes Fire in Big Sur, California, and how does the measured area change depending on projection, raster resolution, and terrain?
-</p>
+  <!-- ============================================================
+       THE QUESTION
+       ============================================================ -->
 
+  <h2>The question</h2>
+
+  <p>
+    How much land burned in the 2016 Soberanes Fire in Big Sur,
+    California, and how does the measured area change depending on
+    projection, raster resolution, and terrain?
+  </p>
+
+
+  <!-- ============================================================
+       THE DATA
+       ============================================================ -->
 
   <h2>The data</h2>
 
-<p>
-I used the Soberanes_Perimeter layer published by Teach_with_GIS in ArcGIS Online.
-Layer link: [paste your Soberanes_Perimeter link here]
-For satellite imagery, I used the Landsat 8–9 archive in Esri Landsat Explorer. I compared:
-Pre-fire: 20 June 2016
-Post-fire: 26 October 2016
-Cell size: 30 m
-I also used the ArcGIS elevation surface in Scene Viewer to examine the terrain and calculate elevation profiles.
-The perimeter geometry is stored in EPSG:3857, WGS 84 / Pseudo-Mercator, which I found in the service definition rather than directly in the map interface.
-The lab also showed that 686 rings are smaller than 900 m², the area of one Landsat cell, which shows that some of the polygon detail is finer than the source imagery could actually observe.
-</p>
+  <p>
+    I used the <strong>Soberanes_Perimeter</strong> layer published by
+    <strong>Teach_with_GIS</strong> in ArcGIS Online.
+  </p>
+
+  <p>
+    <a href="PASTE-PERIMETER-LAYER-LINK-HERE" target="_blank">
+      Open the Soberanes_Perimeter layer
+    </a>
+  </p>
+
+  <p>
+    For satellite imagery, I used the <strong>Landsat 8–9 archive</strong>
+    in Esri Landsat Explorer. I compared a pre-fire scene from
+    <strong>20 June 2016</strong> with a post-fire scene from
+    <strong>26 October 2016</strong>. The Landsat source imagery has a
+    cell size of <strong>30 m</strong>.
+  </p>
+
+  <p>
+    I also used the ArcGIS elevation surface in Scene Viewer to examine
+    the terrain and create elevation profiles across the burned area.
+  </p>
+
+  <p>
+    The perimeter geometry is stored in
+    <strong>EPSG:3857 — WGS 84 / Pseudo-Mercator</strong>.
+    This information was not shown directly in the map, legend, pop-up,
+    or attribute table. I found it in the service definition.
+  </p>
+
+  <p>
+    The geometry analysis also showed that
+    <strong>686 rings are smaller than 900 m²</strong>, the area of one
+    30 m × 30 m Landsat cell. My own Arcade check returned
+    <strong>755 rings when the geometry was delivered in Web Mercator</strong>.
+  </p>
 
 
-    <h2>The method</h2>
+  <!-- ============================================================
+       THE METHOD
+       ============================================================ -->
 
-<h3>China Layers</h3>
-<p>
-  For the China map, I worked with several feature layers in ArcGIS Online, including cities, roads, rivers, and administrative boundaries. I changed the symbols and sizes of the cities, used a filter to work with Chongqing, added key locations with a sketch layer, and compared different basemaps. I also measured the area of Chongqing and compared my measurement with its official area.
-</p>
+  <h2>The method</h2>
 
-<h3>Soho Cholera</h3>
-<p>
-  For the Soho analysis, I used weighted kernel density estimation in ArcGIS Online. I weighted the cholera case points by Num_Cases so that addresses with more cases had more influence on the heat map. I changed the bandwidth using the unlabelled Area of influence slider and tested three positions: far left, middle, and far right. I then compared the three maps to see how the location and size of the hottest area changed.
-</p>
-    <!-- ============================================================
-         YOUR MAP
-         Two options:
+  <p>
+    I measured the same Soberanes Fire perimeter using several different
+    frames. I compared planar measurement in Web Mercator with geodetic
+    measurement on the WGS 84 ellipsoid, a hand-traced measurement,
+    UTM Zone 10N, and California Albers.
+  </p>
 
-         1. An image. Export a PNG from ArcGIS or QGIS, put it in this
-            labs folder, and change the src below to your filename
-            (for example src="map-01.png").
+  <p>
+    In ArcGIS Map Viewer, I used the following Arcade expression:
+  </p>
 
-         2. A live web map. Publish it in ArcGIS Online, choose Share,
-            then Embed, and paste the src URL into the <iframe> line.
+  <pre><code>var planar = Area($feature, 'square-kilometers');
+var globe  = AreaGeodetic($feature, 'square-kilometers');
+var acres  = AreaGeodetic($feature, 'acres');
+var rings  = Count(Geometry($feature).rings);
 
-         Delete whichever one you are not using.
-         ============================================================ -->
-    <figure>
-  <iframe src="https://www.arcgis.com/apps/Embed/index.html?webmap=737b3a862f6442bb9dc0b1dc8c91589c"
-          title="China Layers web map" loading="lazy"></iframe>
-  <figcaption>
-         China Layers map showing major cities, roads, rivers, administrative boundaries, and key locations in China.
-      </figcaption>
-    </figure>
-<figure>
-  <iframe
-    src="https://www.arcgis.com/apps/Embed/index.html?webmap=d10f31c89e8845ae975fe3ef12d57317"
-    title="Soho cholera web map"
-    loading="lazy">
-  </iframe>
+return 'planar   ' + Round(planar, 3) + ' km2'
+   + TextFormatting.NewLine
+   + 'geodetic ' + Round(globe, 3) + ' km2'
+   + TextFormatting.NewLine
+   + 'geodetic ' + Round(acres, 0) + ' acres'
+   + TextFormatting.NewLine
+   + 'ratio    ' + Round(planar / globe, 4)
+   + TextFormatting.NewLine
+   + 'rings    ' + rings;</code></pre>
 
-  <figcaption>
-    Soho cholera map showing cholera cases by address, public water pumps,
-    and John Snow's historical map of the area.
-  </figcaption>
-</figure>
+  <p>
+    To predict Web Mercator distortion, I used:
+  </p>
+
+  <p>
+    <strong>Web Mercator area factor = sec²(latitude)</strong>
+  </p>
+
+  <p>
+    To estimate the uncertainty created by raster cell size, I used:
+  </p>
+
+  <p>
+    <strong>Uncertainty band = perimeter × cell size</strong>
+  </p>
+
+  <p>
+    For terrain, I drew two elevation profiles in Scene Viewer and used:
+  </p>
+
+  <p>
+    <strong>Surface area factor = 1 / cos(average slope)</strong>
+  </p>
+
+  <p>
+    For vertical height, I used the <strong>EGM2008 geoid model</strong>.
+    The conversion was:
+  </p>
+
+  <p>
+    <strong>H = h − N</strong>
+  </p>
+
+  <p>
+    where <strong>h</strong> is ellipsoidal height,
+    <strong>H</strong> is orthometric height, and
+    <strong>N</strong> is geoid separation.
+  </p>
+
+
+  <!-- ============================================================
+       THE MAP
+       ============================================================ -->
+
+  <h2>The map</h2>
+
+  <p>
+    <a href="PASTE-YOUR-WEB-MAP-LINK-HERE" target="_blank">
+      Open my Lab 3 web map
+    </a>
+  </p>
+
+  <p>
+    <a href="PASTE-YOUR-SCENE-LINK-HERE" target="_blank">
+      Open my Lab 3 3D scene
+    </a>
+  </p>
+
+
+  <!-- FIGURE 1 -->
+
+  <figure>
+    <img
+      src="lab-03-figure-1.png"
+      alt="Before-and-after Landsat comparison of the Soberanes Fire."
+    >
+
+    <figcaption>
+      <strong>Figure 1.</strong>
+      Before-and-after Soberanes Fire comparison using Landsat 8–9
+      Short-wave IR imagery from 20 June 2016 and 26 October 2016.
+      The source raster has 30 m cells.
+    </figcaption>
+  </figure>
+
+
+  <!-- FIGURE 2 -->
+
+  <figure>
+    <img
+      src="lab-03-figure-2.png"
+      alt="Close view of Landsat pixels at the Soberanes Fire burn edge."
+    >
+
+    <figcaption>
+      <strong>Figure 2.</strong>
+      Post-fire burn edge viewed in the Landsat raster frame.
+      Each Landsat cell represents approximately
+      <strong>30 m × 30 m</strong> on the ground.
+    </figcaption>
+  </figure>
+
+
+  <!-- FIGURE 3 -->
+
+  <figure>
+    <img
+      src="lab-03-figure-3.png"
+      alt="Soberanes Fire perimeter shown as an outline in ArcGIS Map Viewer."
+    >
+
+    <figcaption>
+      <strong>Figure 3.</strong>
+      Soberanes Fire perimeter displayed as an outline in
+      <strong>EPSG:3857 Web Mercator</strong>.
+      The Landsat source resolution is 30 m.
+    </figcaption>
+  </figure>
+
+
+  <!-- FIGURE 4 -->
+
+  <figure>
+    <img
+      src="lab-03-figure-4.png"
+      alt="Three-dimensional view of the Soberanes Fire over mountainous terrain."
+    >
+
+    <figcaption>
+      <strong>Figure 4.</strong>
+      Soberanes Fire perimeter shown over the ArcGIS elevation surface
+      in Scene Viewer. Elevation profiles across this terrain were used
+      to calculate slope in degrees and estimate surface area.
+    </figcaption>
+  </figure>
+
+
+  <!-- ============================================================
+       WHAT I FOUND
+       ============================================================ -->
+
   <h2>What I found</h2>
 
-<h3>China Layers</h3>
-<p>
-  I found that China's major cities are mainly concentrated in the eastern part of the country, where the road network is also much denser. The map also helped me see how rivers, cities, and roads relate to the administrative boundaries. The Chongqing exercise showed that the result also depends on the unit being used. The World Cities data gives Chongqing a population of about 12.5 million for the built-up agglomeration, while about 32 million refers to the whole municipality.
-</p>
-
-<h3>Soho Cholera</h3>
-<p>
-  The sensitivity test showed that the result changed depending on the area of influence. At the far-left setting, there were several small hotspots and no clear overall centre. At the middle setting, the cases formed a clearer central hotspot, with the 43 Broadwick Street pump nearest the centre. At the far-right setting, 43 Broadwick Street was still nearest the centre, but the pattern was too smoothed to identify a clear hotspot. Therefore, the conclusion about 43 Broadwick Street was clear at two of the three settings, showing that the result is sensitive to the bandwidth.
-</p>
-
-   <h2>What this does not show</h2>
-
-<div class="limits">
-
-  <h3>China Layers</h3>
   <p>
-    The map does not show every detail about China's cities, roads, rivers, or administrative areas. Some boundaries are generalized, so measurements from the map may be different from official measurements. The Chongqing example also shows why the unit matters: the built-up agglomeration and the whole municipality have different boundaries and populations.
+    <strong>
+      Areas measured geodetically on the WGS 84 ellipsoid.
+      Source geometry stored in EPSG:3857 (Web Mercator);
+      planar areas in that frame are inflated by sec²(latitude)
+      and are reported here only for comparison.
+    </strong>
   </p>
 
-  <h3>Soho Cholera</h3>
+
+  <h3>Measurement frames</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Frame</th>
+        <th>Area</th>
+        <th>How I got it</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Web Mercator, planar</td>
+        <td>824.791 km²</td>
+        <td>Area()</td>
+      </tr>
+
+      <tr>
+        <td>WGS 84 ellipsoid, geodetic</td>
+        <td>534.428 km²</td>
+        <td>AreaGeodetic()</td>
+      </tr>
+
+      <tr>
+        <td>Hand-traced polygon</td>
+        <td>514.03 km²</td>
+        <td>Measurement tool</td>
+      </tr>
+
+      <tr>
+        <td>Published incident figure</td>
+        <td>534.699 km²</td>
+        <td>132,127 acres converted</td>
+      </tr>
+
+      <tr>
+        <td>UTM Zone 10N, planar</td>
+        <td>533.929 km²</td>
+        <td>Lab reference</td>
+      </tr>
+
+      <tr>
+        <td>California Albers, planar</td>
+        <td>534.182 km²</td>
+        <td>Lab reference</td>
+      </tr>
+    </tbody>
+  </table>
+
   <p>
-    The heat map does not prove that the 43 Broadwick Street pump caused the cholera outbreak. It only shows the spatial concentration of reported cases. The result also depends on the chosen bandwidth, and the historical records may be incomplete or inaccurate. Other factors that could have influenced where cholera cases occurred are also not shown.
+    I would publish the <strong>geodetic area of approximately
+    534.4 km²</strong>. It avoids the large planar distortion produced
+    by Web Mercator and agrees closely with the equal-area, UTM, and
+    published incident figures.
   </p>
 
   <p>
-    <strong>AI use:</strong> I used ChatGPT only to check that the HTML code
-    I wrote and edited was correct, as I have limited experience with coding.
-    I verified the result by opening the published page and checking that
-    everything displayed and worked correctly. The analysis, map settings,
-    and interpretation are my own.
+    My hand-traced area was <strong>514.03 km²</strong>, even though I
+    traced the perimeter roughly in about one minute. This suggests that
+    the measurement frame caused much more disagreement than the rough
+    hand tracing.
   </p>
+
+
+  <h3>Projection sensitivity</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Place</th>
+        <th>Latitude</th>
+        <th>Web Mercator area inflation</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Equator</td>
+        <td>0.000°</td>
+        <td>0.0%</td>
+      </tr>
+
+      <tr>
+        <td>Gibson Desert</td>
+        <td>−23.285°</td>
+        <td>18.5%</td>
+      </tr>
+
+      <tr>
+        <td>This campus, Pudong</td>
+        <td>31.162°</td>
+        <td>36.6%</td>
+      </tr>
+
+      <tr>
+        <td>Madeira, Portugal</td>
+        <td>32.750°</td>
+        <td>41.4%</td>
+      </tr>
+
+      <tr>
+        <td>Soberanes Fire</td>
+        <td>36.326°</td>
+        <td>54.1%</td>
+      </tr>
+
+      <tr>
+        <td>Fairbanks, Alaska</td>
+        <td>64.840°</td>
+        <td>453.2%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    For the Soberanes Fire, the predicted Web Mercator area factor was:
+  </p>
+
+  <p>
+    <strong>sec²(36.326°) ≈ 1.5406</strong>
+  </p>
+
+  <p>
+    My measured planar-to-geodetic ratio was:
+  </p>
+
+  <p>
+    <strong>824.791 ÷ 534.428 ≈ 1.5433</strong>
+  </p>
+
+  <p>
+    These values are very close, showing that the Web Mercator
+    distortion is systematic and predictable from latitude.
+  </p>
+
+
+  <h3>Raster-resolution sensitivity</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Sensor</th>
+        <th>Cell size</th>
+        <th>Uncertainty band</th>
+        <th>Share of area</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Sentinel-2</td>
+        <td>10 m</td>
+        <td>4.42 km²</td>
+        <td>0.83%</td>
+      </tr>
+
+      <tr>
+        <td>Landsat 8–9</td>
+        <td>30 m</td>
+        <td>13.26 km²</td>
+        <td>2.48%</td>
+      </tr>
+
+      <tr>
+        <td>MODIS</td>
+        <td>250 m</td>
+        <td>110.49 km²</td>
+        <td>20.68%</td>
+      </tr>
+
+      <tr>
+        <td>Coarse global product</td>
+        <td>500 m</td>
+        <td>220.98 km²</td>
+        <td>41.37%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    At Landsat resolution, the grid uncertainty is about
+    <strong>2.48%</strong>, compared with approximately
+    <strong>54.1%</strong> from Web Mercator projection distortion.
+  </p>
+
+  <p>
+    One of the narrowest burned fingers I measured was
+    <strong>58.39 m</strong> wide.
+  </p>
+
+  <p>
+    <strong>58.39 ÷ 30 ≈ 1.95 Landsat cells</strong>
+  </p>
+
+  <p>
+    This suggests that the feature is probably real rather than a
+    single-cell artefact, but its exact width and boundary are still
+    uncertain because it is represented by only about two Landsat cells.
+  </p>
+
+
+  <h3>Boundary complexity</h3>
+
+  <p>
+    The isoperimetric ratio of the fire perimeter was:
+  </p>
+
+  <p>
+    <strong>
+      4 × π × 824.638 ÷ 556.808² ≈ 0.034
+    </strong>
+  </p>
+
+  <p>
+    A perfect circle has a value of 1, so this very low value shows that
+    the perimeter is extremely irregular and detailed.
+  </p>
+
+  <p>
+    A circle with an area of about 534 km² would have a circumference of
+    only about <strong>82 km</strong>, while the fire's geodetic
+    perimeter is approximately <strong>442 km</strong>.
+  </p>
+
+  <p>
+    My Arcade expression returned <strong>755 rings in Web Mercator</strong>.
+    I would therefore publish the area, but I would publish the perimeter
+    only with the source resolution stated beside it because perimeter is
+    much more sensitive to small rings and extra vertices.
+  </p>
+
+
+  <h3>Terrain</h3>
+
+  <p>
+    My first elevation profile had average slopes of
+    <strong>22.1° uphill</strong> and
+    <strong>21.0° downhill</strong>.
+  </p>
+
+  <p>
+    Average slope:
+    <strong>(22.1 + 21.0) ÷ 2 = 21.55°</strong>
+  </p>
+
+  <p>
+    Surface area factor:
+    <strong>1 ÷ cos(21.55°) ≈ 1.075</strong>
+  </p>
+
+  <p>
+    Surface area:
+    <strong>534.182 × 1.075 ≈ 574.3 km²</strong>
+  </p>
+
+
+  <p>
+    My second elevation profile had average slopes of
+    <strong>23.2° uphill</strong> and
+    <strong>20.9° downhill</strong>.
+  </p>
+
+  <p>
+    Average slope:
+    <strong>(23.2 + 20.9) ÷ 2 = 22.05°</strong>
+  </p>
+
+  <p>
+    Surface area factor:
+    <strong>1 ÷ cos(22.05°) ≈ 1.079</strong>
+  </p>
+
+  <p>
+    Surface area:
+    <strong>534.182 × 1.079 ≈ 576.3 km²</strong>
+  </p>
+
+  <p>
+    The actual burned ground surface is therefore
+    <strong>at least approximately 574.3–576.3 km²</strong>.
+    The terrain effect is approximately <strong>7.5–7.9%</strong>.
+  </p>
+
+  <p>
+    For this fire, the three effects were approximately:
+  </p>
+
+  <p>
+    <strong>
+      Projection: 54.1%<br>
+      Terrain: 7.5–7.9%<br>
+      Landsat grid: 2.48%
+    </strong>
+  </p>
+
+
+  <h3>Geoid and vertical height</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Point</th>
+        <th>EGM2008</th>
+        <th>EGM96</th>
+        <th>EGM84</th>
+        <th>Spread</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Soberanes Fire</td>
+        <td>−32.9779 m</td>
+        <td>−34.0791 m</td>
+        <td>−34.7582 m</td>
+        <td>1.7803 m</td>
+      </tr>
+
+      <tr>
+        <td>This campus</td>
+        <td>+12.1533 m</td>
+        <td>+11.4482 m</td>
+        <td>+11.6075 m</td>
+        <td>0.7051 m</td>
+      </tr>
+
+      <tr>
+        <td>Everest</td>
+        <td>−28.4939 m</td>
+        <td>−28.7408 m</td>
+        <td>−30.4587 m</td>
+        <td>1.9648 m</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    I used <strong>EGM2008</strong> for the height conversion at the
+    Soberanes Fire.
+  </p>
+
+  <p>
+    If the receiver reports an ellipsoidal height of
+    <strong>h = 900 m</strong>:
+  </p>
+
+  <p>
+    <strong>
+      H = h − N<br>
+      H = 900 − (−32.9779)<br>
+      H = 932.9779 m ≈ 932.98 m
+    </strong>
+  </p>
+
+  <p>
+    For runoff modelling, I would use <strong>orthometric height</strong>
+    because water flows downhill according to gravity and the geoid,
+    rather than relative to the mathematical ellipsoid.
+  </p>
+
+
+  <!-- ============================================================
+       WHAT THIS DOES NOT SHOW
+       ============================================================ -->
+
+  <h2>What this does not show</h2>
+
+  <div class="limits">
+
+    <p>
+      The fire perimeter is limited by the
+      <strong>30 m resolution of the Landsat imagery</strong>.
+      Features close to or smaller than one cell may disappear,
+      occupy an entire cell, or appear more precise in the vector
+      boundary than the satellite could actually observe.
+    </p>
+
+    <p>
+      The terrain calculation is only a <strong>lower bound</strong>.
+      Using one average slope cannot represent every steep and gentle
+      section of the landscape, so the real burned surface area may be
+      larger than 574.3–576.3 km².
+    </p>
+
+    <p>
+      The vertical-height conversion also depends on the geoid model.
+      The three models differed by 1.7803 m at Soberanes, 0.7051 m at
+      the campus, and 1.9648 m at Everest. This means the geoid model
+      used for a height conversion should be stated.
+    </p>
+
+    <p>
+      The three sources of disagreement do not always have the same
+      ranking. At a lower latitude, projection distortion would become
+      smaller. With a coarser sensor or a smaller feature, grid
+      uncertainty could become larger. On steeper terrain, terrain
+      correction could become more important.
+    </p>
+
+  </div>
+
+
+  <!-- ============================================================
+       REFLECTION
+       ============================================================ -->
+
+  <h2>Reflection</h2>
+
+  <p>
+    I would publish the <strong>geodetic area of approximately
+    534.4 km² on the WGS 84 ellipsoid</strong>. Before publishing it,
+    I would check the coordinate system and the method used to calculate
+    the area. If I had trusted the attribute table without checking the
+    frame, I would have published about <strong>824.638 km²</strong>,
+    around 290 km² or 54% larger than the geodetic result.
+  </p>
+
+  <p>
+    For this fire, projection had the largest effect at about
+    <strong>54%</strong>, followed by terrain at about
+    <strong>7.5–7.9%</strong>, and the Landsat grid at about
+    <strong>2.5%</strong>. This ranking could change at a lower
+    latitude, with a coarser sensor, a smaller feature, or steeper
+    terrain. The terrain effect could not be discovered from the
+    perimeter file alone because it required a separate elevation
+    surface.
+  </p>
+
+  <p>
+    Burned acreage can affect insurance settlements. If burned area
+    were measured in Web Mercator without stating the projection, the
+    affected area could be greatly overstated. In a case where an
+    insurance payment depends on acreage, both the claimant and the
+    insurer could be affected because the settlement would be based on
+    a measurement made in an inappropriate display frame.
+  </p>
+
+
+  <!-- ============================================================
+       AI DISCLOSURE
+       ============================================================ -->
+
+  <h2>AI use</h2>
+
+  <p>
+    I used ChatGPT to help clarify the lab instructions, check my
+    calculations, and check my Arcade and HTML code. I verified the
+    results using ArcGIS outputs, Landsat Explorer, the geoid calculator,
+    and the lab instructions. The measurements, screenshots, and
+    interpretation are my own.
+  </p>
+
+
+  <a class="back" href="../index.html#labs">← Back to all labs</a>
 
 </div>
 
-    <a class="back" href="../index.html#labs">← Back to all labs</a>
-
-  </div>
 </article>
+
 </main>
+
 
 <footer class="site-foot">
   <div class="wrap wrap-narrow">
-    <p>Sazhida Mukanbetkaliyeva · SOCS-SHU 205 · NYU Shanghai · Fall 2026</p>
+    <p>
+      Sazhida Mukanbetkaliyeva · SOCS-SHU 205 · NYU Shanghai · Fall 2026
+    </p>
   </div>
 </footer>
 
