@@ -42,58 +42,48 @@
 
   <h2>The question</h2>
 
-  <p>
-    How much land burned in the 2016 Soberanes Fire in Big Sur,
-    California, and how does the measured area change depending on
-    projection, raster resolution, and terrain?
-  </p>
+<p class="lead">
+  How much land burned in the 2016 Soberanes Fire in Big Sur,
+  California, and how does the measured area change with projection,
+  raster resolution, and terrain?
+</p>
 
 
   <!-- ============================================================
        THE DATA
        ============================================================ -->
 
-  <h2>The data</h2>
+ <h2>The data</h2>
 
-  <p>
-    I used the <strong>Soberanes_Perimeter</strong> layer published by
-    <strong>Teach_with_GIS</strong> in ArcGIS Online.
-  </p>
+<p>
+  I used the <strong>Soberanes_Perimeter</strong> layer published by
+  <strong>Teach_with_GIS</strong> in ArcGIS Online.
+  <a href="PASTE-LAYER-LINK-HERE" target="_blank">View source layer ↗</a>
+</p>
 
-  <p>
-    <a href="PASTE-PERIMETER-LAYER-LINK-HERE" target="_blank">
-      Open the Soberanes_Perimeter layer
-    </a>
-  </p>
+<p>
+  For satellite imagery, I used the <strong>Landsat 8–9 archive</strong>
+  in Esri Landsat Explorer. I compared a pre-fire acquisition from
+  <strong>20 June 2016</strong> with a post-fire acquisition from
+  <strong>26 October 2016</strong>.
+</p>
 
-  <p>
-    For satellite imagery, I used the <strong>Landsat 8–9 archive</strong>
-    in Esri Landsat Explorer. I compared a pre-fire scene from
-    <strong>20 June 2016</strong> with a post-fire scene from
-    <strong>26 October 2016</strong>. The Landsat source imagery has a
-    cell size of <strong>30 m</strong>.
-  </p>
+<p>
+  I also used the <strong>ArcGIS elevation surface in Scene Viewer</strong>
+  for the terrain and slope analysis.
+</p>
 
-  <p>
-    I also used the ArcGIS elevation surface in Scene Viewer to examine
-    the terrain and create elevation profiles across the burned area.
-  </p>
+<div class="note">
+  The perimeter coordinate system was not shown directly in the map interface.
+  I found it in the service definition as
+  <strong>EPSG:3857 — WGS 84 / Pseudo-Mercator (Web Mercator)</strong>.
+</div>
 
-  <p>
-    The perimeter geometry is stored in
-    <strong>EPSG:3857 — WGS 84 / Pseudo-Mercator</strong>.
-    This information was not shown directly in the map, legend, pop-up,
-    or attribute table. I found it in the service definition.
-  </p>
-
-  <p>
-    The geometry analysis also showed that
-    <strong>686 rings are smaller than 900 m²</strong>, the area of one
-    30 m × 30 m Landsat cell. My own Arcade check returned
-    <strong>755 rings when the geometry was delivered in Web Mercator</strong>.
-  </p>
-
-
+<p>
+  The geometry also contains <strong>686 rings smaller than 900 m²</strong>,
+  the area of one 30 m × 30 m Landsat cell. This means some boundary detail
+  is finer than the source imagery could actually observe.
+</p>
   <!-- ============================================================
        THE METHOD
        ============================================================ -->
