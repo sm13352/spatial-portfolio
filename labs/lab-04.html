@@ -1,1 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Lab 04 · The Same Layer, Four Cell Sizes · Sazhida Mukanbetkaliyeva</title>
+
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Sazhida Mukanbetkaliyeva</a>
+
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../index.html#labs">Labs</a>
+    </nav>
+  </div>
+</header>
+
+
+<main id="main">
+
+<article class="entry">
+
+<div class="wrap wrap-narrow">
+
+  <p class="kicker">Lab 04 · October 2026</p>
+
+  <h1>The Same Layer, Four Cell Sizes</h1>
+
+
+  <!-- ============================================================
+       THE QUESTION
+       ============================================================ -->
+
+  <h2>The question</h2>
+
+  <p class="lead">
+    How much area does Putuo District occupy in Shanghai, and how does
+    the measured area change when the same district boundaries are represented
+    as vector data and as rasters with 1,000 m, 250 m, 100 m, and 30 m cells?
+  </p>
+
+
+  <!-- ============================================================
+       THE DATA
+       ============================================================ -->
+
+  <h2>The data</h2>
+
+  <p>
+    I used two files provided through the SOCS-SHU 205 Brightspace page
+    and retrieved on <strong>10 October 2026</strong>:
+    <strong>LAB04_shanghai-lockdown-survey.csv</strong> and
+    <strong>LAB04_shanghai-districts.geojson</strong>.
+  </p>
+
+  <p>
+    The district boundary file contains the sixteen districts of Shanghai.
+    The polygons come from <strong>DataV.GeoAtlas</strong>, a boundary
+    service published by Alibaba. The boundary file does not state a licence,
+    accuracy figure, or contact information, so I use it to produce derived
+    measurements and maps rather than redistribute the original file.
+  </p>
+
+  <p>
+    The survey contains <strong>3,348 respondent records</strong>.
+    When I first loaded the CSV in QGIS, the Chinese text displayed
+    incorrectly because QGIS assumed UTF-8 encoding. I reloaded the file
+    using <strong>GB18030</strong>, after which fields such as Jiedao/town
+    displayed correctly.
+  </p>
+
+  <p>
+    Although the CSV contains 3,348 rows, only
+    <strong>2,795 respondents have usable coordinates</strong>.
+    The remaining <strong>553 records</strong>, or approximately
+    <strong>16.5%</strong> of the survey, contain
+    <strong>(空)</strong> instead of a usable location.
+  </p>
+
+  <p>
+    Detailed postal addresses were removed from the course-provided version
+    before I received the survey. The original GPS information could include
+    streets, lanes, room numbers, and apartment-level information. The
+    handout does not identify the individual who performed this removal.
+    The coordinates were retained, which means the location information
+    can still be identifying.
+  </p>
+
+  <p>
+    The survey itself is not public and is not mine to redistribute.
+    For this reason, I do not upload the source CSV or publish maps that
+    reveal individual respondents at building level.
+  </p>
+
+
+  <!-- ============================================================
+       THE METHOD
+       ============================================================ -->
+
+  <h2>The method</h2>
+
+  <p>
+    I carried out the analysis in <strong>QGIS 3.44</strong>.
+    I reprojected the Shanghai district polygons and survey points to
+    <strong>EPSG:32651 — WGS 84 / UTM Zone 51N</strong>, allowing
+    planimetric measurements in metres.
+  </p>
+
+  <p>
+    I first compared the area of the same Shanghai district boundaries in
+    several coordinate frames. The geodetic WGS 84 total was
+    <strong>7,988.523 km²</strong>.
+    The same polygons measured
+    <strong>10,955.302 km² in EPSG:3857 Web Mercator</strong>,
+    <strong>7,986.346 km² in EPSG:32651 UTM 51N</strong>,
+    <strong>7,992.613 km² in EPSG:4549</strong>, and
+    <strong>8,089.649 km² in EPSG:4547</strong>.
+  </p>
+
+  <p>
+    For the raster analysis I used the exact extent
+    <strong>295000, 430000, 3393000, 3528000</strong>
+    in EPSG:32651.
+  </p>
+
+  <p>
+    I rasterized the same sixteen district polygons at four cell sizes:
+    <strong>1,000 m, 250 m, 100 m, and 30 m</strong>.
+    I burned the <code>survey_code</code> field into the raster and used
+    <strong>Byte</strong> as the output data type.
+  </p>
+
+  <p>
+    The main QGIS tools used were
+    <strong>Reproject layer</strong>,
+    <strong>Join attributes by location</strong>,
+    <strong>Rasterize (vector to raster)</strong>,
+    <strong>Sample raster values</strong>,
+    <strong>Raster layer unique values report</strong>, and
+    <strong>Basic statistics for fields</strong>.
+  </p>
+
+  <p>
+    I used a point-in-polygon spatial join to compare the district recorded
+    in the survey with the district containing each respondent's mapped
+    coordinate. The join processed <strong>2,795 mapped respondents</strong>
+    and identified <strong>245 district mismatches</strong>.
+  </p>
+
+  <p>
+    I also tested sensitivity to grid origin. I rasterized the districts
+    again at 1 km using the shifted extent
+    <strong>294500, 430500, 3392500, 3528500</strong>.
+    This moved the grid by half of a 1 km cell in both directions while
+    keeping the underlying district polygons unchanged.
+  </p>
+
+
+  <!-- ============================================================
+       THE MAP
+       ============================================================ -->
+
+  <h2>The map</h2>
+
+  <p>
+    The figures below show how the same Shanghai data changes when it is
+    represented at different raster resolutions and compared with the
+    survey locations.
+  </p>
+
+
+  <!-- ============================================================
+       FIGURE 1
+       ============================================================ -->
+
+  <h3>Figure 1 · Shanghai districts at 1 km and 30 m</h3>
+
+  <div class="figure-grid">
+
+    <figure>
+      <img
+        src="lab04-figure1-1000m.png"
+        alt="Shanghai district raster represented with one kilometre cells">
+
+      <figcaption>
+        <strong>Figure 1A · 1 km district raster.</strong>
+        Shanghai's sixteen districts represented as raster cells.
+        <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
+        <strong>Cell size:</strong> 1,000 m × 1,000 m.
+        The coarse cells visibly simplify the district boundaries.
+      </figcaption>
+    </figure>
+
+
+    <figure>
+      <img
+        src="lab04-figure1-30m.png"
+        alt="Shanghai district raster represented with thirty metre cells">
+
+      <figcaption>
+        <strong>Figure 1B · 30 m district raster.</strong>
+        The same sixteen district polygons represented with much smaller cells.
+        <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
+        <strong>Cell size:</strong> 30 m × 30 m.
+      </figcaption>
+    </figure>
+
+  </div>
+
+
+  <!-- ============================================================
+       FIGURE 2
+       ============================================================ -->
+
+  <h3>Figure 2 · The raster boundary staircase</h3>
+
+  <figure>
+    <img
+      src="lab04-figure2-boundary.png"
+      alt="Close-up of a Shanghai district boundary represented by thirty metre raster cells">
+
+    <figcaption>
+      <strong>Figure 2.</strong>
+      Close-up of a district boundary showing the staircase created when
+      a vector boundary is converted into raster cells.
+      <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
+      <strong>Cell size:</strong> 30 m × 30 m.
+      The view is framed so that no individual survey respondent can be
+      located from the image.
+    </figcaption>
+  </figure>
+
+
+  <!-- ============================================================
+       FIGURE 3
+       ============================================================ -->
+
+  <h3>Figure 3 · Records whose district and coordinate disagree</h3>
+
+  <figure>
+    <img
+      src="lab04-figure3-mismatch.png"
+      alt="City-scale map showing Shanghai survey respondents whose reported district disagrees with their coordinate">
+
+    <figcaption>
+      <strong>Figure 3.</strong>
+      City-scale map of the <strong>245 respondents</strong> whose mapped
+      coordinate falls in a different district from the district recorded
+      in the survey.
+      <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
+      The city-scale view shows the spatial pattern without revealing an
+      individual household.
+    </figcaption>
+  </figure>
+
+
+  <!-- ============================================================
+       FIGURE 4
+       ============================================================ -->
+
+  <h3>Figure 4 · Mapped survey respondents across Shanghai</h3>
+
+  <figure>
+    <img
+      src="lab04-figure4-points.png"
+      alt="City-scale map showing mapped Shanghai lockdown survey respondents">
+
+    <figcaption>
+      <strong>Figure 4.</strong>
+      City-scale distribution of the
+      <strong>2,795 survey respondents with usable coordinates</strong>.
+      <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
+      The map is intentionally shown at city scale rather than building
+      scale to protect respondent privacy.
+    </figcaption>
+  </figure>
+
+
+  <!-- ============================================================
+       WHAT I FOUND
+       ============================================================ -->
+
+  <h2>What I found</h2>
+
+  <!-- REQUIRED PART 8.4 DECLARATION -->
+
+  <p>
+    <strong>
+      Areas measured planar in EPSG:32651 (WGS 84 / UTM 51N),
+      which departs from the ellipsoidal area by under 0.03 per cent
+      at this latitude. Gridded areas were computed by cell count
+      on a 30 m grid with origin 295000, 3528000; shifting that
+      origin by half a cell moves a small district by several
+      per cent, so gridded figures are reported to no better
+      than the nearest per cent.
+    </strong>
+  </p>
+
+
+  <h3>Projection</h3>
+
+  <p>
+    Projection produced a large difference in the measured total area of
+    Shanghai. The geodetic WGS 84 result was
+    <strong>7,988.523 km²</strong>, while the Web Mercator planar result
+    was <strong>10,955.302 km²</strong>, approximately
+    <strong>37.14% larger</strong>.
+  </p>
+
+  <p>
+    Before measuring, I predicted Web Mercator inflation of about
+    <strong>36.6%</strong>. The measured difference of
+    <strong>37.14%</strong> was very close to that prediction.
+  </p>
+
+  <p>
+    In comparison, the EPSG:32651 UTM 51N result was
+    <strong>7,986.346 km²</strong>, only approximately
+    <strong>0.027% below</strong> the geodetic result.
+  </p>
+
+
+  <h3>Raster storage</h3>
+
+  <p>
+    Raster storage increased rapidly as the cell size became smaller.
+    The 1 km raster contained <strong>18,225 cells</strong> and was about
+    <strong>19 KB</strong>. The 250 m raster contained
+    <strong>291,600 cells</strong> and was about
+    <strong>292 KB</strong>.
+  </p>
+
+  <p>
+    At 100 m the raster contained
+    <strong>1,822,500 cells</strong> and was approximately
+    <strong>1.8 MB</strong>. At 30 m it contained
+    <strong>20,250,000 cells</strong> and grew to approximately
+    <strong>20.3 MB</strong>.
+  </p>
+
+  <p>
+    This demonstrates the square relationship between spatial resolution
+    and raster storage: reducing the cell dimension increases the number
+    of cells across both the width and height of the grid.
+  </p>
+
+  <p>
+    High compression reduced my 30 m raster from about
+    <strong>20.3 MB to 271 KB</strong>. This shows that the raster is
+    highly redundant because many neighbouring cells contain the same
+    district value.
+  </p>
+
+
+  <h3>Vector and raster queries</h3>
+
+  <p>
+    The original vector spatial join completed in approximately
+    <strong>0.09 seconds</strong>.
+    Sampling both my 30 m and 100 m rasters took approximately
+    <strong>0.15 seconds</strong> in my QGIS runs.
+  </p>
+
+  <p>
+    The <strong>30 m raster agreed with the vector join for
+    2,794 of 2,795 points</strong>, while the
+    <strong>100 m raster agreed for 2,789 of 2,795 points</strong>.
+    The coarser raster therefore lost slightly more positional detail.
+  </p>
+
+
+  <h3>Sparse point data</h3>
+
+  <p>
+    Rasterizing the survey points showed how inefficient a raster can be
+    for sparse object-like data. At 30 m resolution, the grid contained
+    <strong>20,250,000 cells</strong>, but only
+    <strong>2,568 cells contained a respondent</strong>.
+    This is only approximately <strong>0.013%</strong> of the grid.
+  </p>
+
+  <p>
+    Several respondents can also collapse into the same raster cell.
+    There were 2,795 mapped respondents but only 2,568 occupied 30 m
+    cells.
+  </p>
+
+
+  <h3>Internal inconsistency</h3>
+
+  <p>
+    The spatial join identified
+    <strong>245 inconsistent records among 2,795 mapped respondents</strong>,
+    or approximately <strong>8.8%</strong>.
+    In these records, the mapped coordinate falls in a different district
+    from the district recorded in the survey.
+  </p>
+
+  <p>
+    The largest repeated coordinate was
+    <strong>121.472644, 31.231706</strong>, in the
+    People's Park / People's Square area. Eleven respondents with several
+    different district codes shared this exact coordinate, suggesting that
+    it may have been a fallback or default geocoding result rather than
+    eleven people occupying the same precise location.
+  </p>
+
+
+  <h3>Sensitivity to grid origin</h3>
+
+  <p>
+    Moving the 1 km grid by only 500 m changed several district area
+    estimates even though the source polygons and cell size stayed the same.
+  </p>
+
+  <p>
+    Xuhui changed from approximately
+    <strong>3.8% below</strong> its vector area in Grid A to
+    <strong>5.3% above</strong> it in Grid B, a
+    <strong>9.1 percentage-point swing</strong>.
+  </p>
+
+  <p>
+    This means the rasterized area is not determined by cell size alone.
+    It also depends on the origin of the grid. I would therefore not treat
+    either grid result as one definitive value; I would report the result
+    together with the range produced by changing the grid origin.
+  </p>
+
+
+  <h3>The area I would publish for Putuo</h3>
+
+  <p>
+    I would publish the <strong>vector area of Putuo:
+    55.54 km² in EPSG:32651 — WGS 84 / UTM Zone 51N</strong>.
+    This projected frame differs from the geodetic result by less than
+    0.03% for the overall Shanghai measurement and avoids the additional
+    grid-origin sensitivity introduced by a coarse raster.
+  </p>
+
+  <p>
+    At 1 km resolution, Putuo changes from approximately
+    <strong>4.6% below</strong> its vector area in Grid A to
+    <strong>2.6% above</strong> it in Grid B. Because the sign and size
+    of the error change when only the grid origin changes, I would not
+    present either 1 km raster value as more authoritative than the
+    underlying vector measurement.
+  </p>
+
+
+  <!-- ============================================================
+       WHAT THIS DOES NOT SHOW
+       ============================================================ -->
+
+  <h2>What this does not show</h2>
+
+  <p>
+    The maps do not show that
+    <strong>245 of the 2,795 mapped respondents, or 8.8%</strong>,
+    have coordinates that disagree with their recorded district.
+    The available data does not establish whether the coordinate or the
+    self-reported district should be treated as the correct one.
+  </p>
+
+  <p>
+    The spatial analysis also excludes
+    <strong>553 of the 3,348 survey records</strong>,
+    approximately <strong>16.5%</strong>, because those respondents do
+    not have usable coordinates. Spatial results therefore describe only
+    the subset of respondents who could be mapped.
+  </p>
+
+  <p>
+    Fine raster cells also do not guarantee that the source boundary was
+    originally mapped at the same level of precision. The district boundary
+    data has an underlying effective spatial resolution of approximately
+    <strong>600 m</strong>. A 30 m or 100 m raster can therefore create
+    the appearance of greater precision than the source geometry actually
+    supports.
+  </p>
+
+  <p>
+    Location also creates a privacy limitation. Coordinates recorded to
+    six decimal places can effectively identify an address when
+    reverse-geocoded. I therefore do not publish the original survey CSV,
+    building-level respondent maps, or a 30 m respondent raster zoomed to
+    individual cells.
+  </p>
+
+  <p>
+    The Shanghai boundary file also carries no stated licence.
+    I therefore publish derived figures and measurements rather than
+    redistributing the source boundary file, and I record its
+    DataV.GeoAtlas source and retrieval context.
+  </p>
+
+
+  <!-- ============================================================
+       AI DISCLOSURE
+       ============================================================ -->
+
+  <h3>AI disclosure</h3>
+
+  <p>
+    I used ChatGPT to clarify parts of the lab instructions, troubleshoot
+    QGIS steps, check calculations, and check my HTML code. I verified the
+    numerical results using my own QGIS outputs and the Lab 4 instructions.
+    The maps, measurements, screenshots, and final interpretation are based
+    on my own lab work.
+  </p>
+
+
+  <a class="back" href="../index.html#labs">← Back to all labs</a>
+
+</div>
+
+</article>
+
+</main>
+
+
+<footer class="site-foot">
+  <div class="wrap wrap-narrow">
+    <p>
+      Sazhida Mukanbetkaliyeva · SOCS-SHU 205 · NYU Shanghai · Fall 2026
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
