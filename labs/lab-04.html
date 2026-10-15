@@ -88,12 +88,12 @@
   </p>
 
   <p>
-    Detailed postal addresses were removed from the course-provided version
-    before I received the survey. The original GPS information could include
-    streets, lanes, room numbers, and apartment-level information. The
-    handout does not identify the individual who performed this removal.
-    The coordinates were retained, which means the location information
-    can still be identifying.
+    Detailed postal addresses had already been removed from the
+    course-provided version before I received the survey. The original GPS
+    information could include streets, lanes, room numbers, and apartment-level
+    information. The handout does not identify the specific individual who
+    carried out the removal. The coordinates were retained, which means the
+    location information can still be identifying.
   </p>
 
   <p>
@@ -180,141 +180,138 @@
 
 
   <!-- ============================================================
+       PROJECT FILES
+       ============================================================ -->
+
+  <h3>QGIS project files</h3>
+
+  <figure>
+    <img
+      src="projectfiles.png"
+      alt="Lab 4 QGIS project file and the 1 km, 250 m, and 100 m raster files">
+
+    <figcaption>
+      <strong>Lab 4 project files.</strong>
+      The QGIS project together with the three small raster outputs:
+      1,000 m, 250 m, and 100 m.
+    </figcaption>
+  </figure>
+
+
+  <!-- ============================================================
        FIGURE 1
        ============================================================ -->
-<!-- ============================================================
-     PROJECT FILES
-     ============================================================ -->
 
-<h3>QGIS project files</h3>
+  <h3>Figure 1 · Shanghai districts at 1 km and 30 m</h3>
 
-<figure>
-  <img
-    src="projectfiles.png"
-    alt="Lab 4 QGIS project file and the 1 km, 250 m, and 100 m raster files">
+  <div class="figure-grid">
 
-  <figcaption>
-    <strong>Lab 4 project files.</strong>
-    The QGIS project together with the three small raster outputs:
-    1,000 m, 250 m, and 100 m.
-  </figcaption>
-</figure>
+    <figure>
+      <img
+        src="1000m.png"
+        alt="Shanghai district raster represented with one kilometre cells">
+
+      <figcaption>
+        <strong>Figure 1A · 1 km district raster.</strong>
+        Shanghai's sixteen districts represented as raster cells.
+        <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
+        <strong>Cell size:</strong> 1,000 m × 1,000 m.
+        The coarse cells visibly simplify the district boundaries.
+      </figcaption>
+    </figure>
 
 
-<!-- ============================================================
-     FIGURE 1
-     ============================================================ -->
+    <figure>
+      <img
+        src="30m.png"
+        alt="Shanghai district raster represented with thirty metre cells">
 
-<h3>Figure 1 · Shanghai districts at 1 km and 30 m</h3>
+      <figcaption>
+        <strong>Figure 1B · 30 m district raster.</strong>
+        The same sixteen district polygons represented with much smaller cells.
+        <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
+        <strong>Cell size:</strong> 30 m × 30 m.
+        The finer grid follows the district boundaries more closely.
+      </figcaption>
+    </figure>
 
-<div class="figure-grid">
+  </div>
+
+
+  <!-- ============================================================
+       FIGURE 2
+       ============================================================ -->
+
+  <h3>Figure 2 · The raster boundary staircase</h3>
 
   <figure>
     <img
-      src="1000m.png"
-      alt="Shanghai district raster represented with one kilometre cells">
+      src="figure2.png"
+      alt="Close-up of a Shanghai district boundary represented by thirty metre raster cells">
 
     <figcaption>
-      <strong>Figure 1A · 1 km district raster.</strong>
-      Shanghai's sixteen districts represented as raster cells.
-      <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
-      <strong>Cell size:</strong> 1,000 m × 1,000 m.
-      The coarse cells visibly simplify the district boundaries.
-    </figcaption>
-  </figure>
-
-
-  <figure>
-    <img
-      src="30m.png"
-      alt="Shanghai district raster represented with thirty metre cells">
-
-    <figcaption>
-      <strong>Figure 1B · 30 m district raster.</strong>
-      The same sixteen district polygons represented with much smaller cells.
+      <strong>Figure 2.</strong>
+      Close-up of a district boundary showing the staircase created when
+      a vector boundary is converted into raster cells.
       <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
       <strong>Cell size:</strong> 30 m × 30 m.
-      The finer grid follows the district boundaries more closely.
+      The close-up makes the square-cell structure of the raster unmistakable.
+      No individual survey respondent is visible in the image.
     </figcaption>
   </figure>
 
-</div>
+
+  <!-- ============================================================
+       FIGURE 3
+       ============================================================ -->
+
+  <h3>Figure 3 · Records whose district and coordinate disagree</h3>
+
+  <figure>
+    <img
+      src="245.png"
+      alt="City-scale map showing Shanghai survey respondents whose reported district disagrees with their coordinate">
+
+    <figcaption>
+      <strong>Figure 3.</strong>
+      City-scale map of the <strong>245 respondents</strong> whose mapped
+      coordinate falls in a different district from the district recorded
+      in the survey.
+      <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
+      <strong>Cell size:</strong> N/A — vector points and district polygons.
+      The city-scale view shows the overall spatial pattern without revealing
+      an individual household.
+    </figcaption>
+  </figure>
 
 
-<!-- ============================================================
-     FIGURE 2
-     ============================================================ -->
+  <!-- ============================================================
+       FIGURE 4
+       ============================================================ -->
 
-<h3>Figure 2 · The raster boundary staircase</h3>
+  <h3>Figure 4 · Shanghai districts at 100 m resolution</h3>
 
-<figure>
-  <img
-    src="figure2.png"
-    alt="Close-up of a Shanghai district boundary represented by thirty metre raster cells">
+  <figure>
+    <img
+      src="100m.png"
+      alt="Shanghai district raster represented with one hundred metre cells">
 
-  <figcaption>
-    <strong>Figure 2.</strong>
-    Close-up of a district boundary showing the staircase created when
-    a vector boundary is converted into raster cells.
-    <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
-    <strong>Cell size:</strong> 30 m × 30 m.
-    The close-up makes the square-cell structure of the raster unmistakable.
-    No individual survey respondent is visible in the image.
-  </figcaption>
-</figure>
-
-
-<!-- ============================================================
-     FIGURE 3
-     ============================================================ -->
-
-<h3>Figure 3 · Records whose district and coordinate disagree</h3>
-
-<figure>
-  <img
-    src="245.png"
-    alt="City-scale map showing Shanghai survey respondents whose reported district disagrees with their coordinate">
-
-  <figcaption>
-    <strong>Figure 3.</strong>
-    City-scale map of the <strong>245 respondents</strong> whose mapped
-    coordinate falls in a different district from the district recorded
-    in the survey.
-    <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
-    <strong>Cell size:</strong> N/A — vector points and district polygons.
-    The city-scale view shows the overall spatial pattern without revealing
-    an individual household.
-  </figcaption>
-</figure>
+    <figcaption>
+      <strong>Figure 4.</strong>
+      The sixteen Shanghai districts represented using a 100 m raster,
+      providing an intermediate resolution between the coarse 1 km grid
+      and the fine 30 m grid.
+      <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
+      <strong>Cell size:</strong> 100 m × 100 m.
+    </figcaption>
+  </figure>
 
 
-<!-- ============================================================
-     FIGURE 4
-     ============================================================ -->
-
-<h3>Figure 4 · Shanghai districts at 100 m resolution</h3>
-
-<figure>
-  <img
-    src="100m.png"
-    alt="Shanghai district raster represented with one hundred metre cells">
-
-  <figcaption>
-    <strong>Figure 4.</strong>
-    The sixteen Shanghai districts represented using a 100 m raster,
-    providing an intermediate resolution between the coarse 1 km grid
-    and the fine 30 m grid.
-    <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
-    <strong>Cell size:</strong> 100 m × 100 m.
-  </figcaption>
-</figure>
   <!-- ============================================================
        WHAT I FOUND
        ============================================================ -->
 
   <h2>What I found</h2>
-
-  <!-- REQUIRED PART 8.4 DECLARATION -->
 
   <p>
     <strong>
@@ -430,11 +427,12 @@
 
   <p>
     The largest repeated coordinate was
-    <strong>121.472644, 31.231706</strong>, in the
-    People's Park / People's Square area. Eleven respondents with several
-    different district codes shared this exact coordinate, suggesting that
-    it may have been a fallback or default geocoding result rather than
-    eleven people occupying the same precise location.
+    <strong>121.472644, 31.231706</strong>, in
+    <strong>People's Park, Huangpu</strong>.
+    Eleven respondents with several different district codes shared this
+    exact coordinate, suggesting that it may have been a fallback or default
+    geocoding result rather than eleven people occupying the same precise
+    location.
   </p>
 
 
@@ -525,7 +523,6 @@
     redistributing the source boundary file, and I record its
     DataV.GeoAtlas source and retrieval context.
   </p>
-
 
   <!-- ============================================================
        AI DISCLOSURE
