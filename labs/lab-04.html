@@ -182,110 +182,132 @@
   <!-- ============================================================
        FIGURE 1
        ============================================================ -->
+<!-- ============================================================
+     PROJECT FILES
+     ============================================================ -->
 
-  <h3>Figure 1 · Shanghai districts at 1 km and 30 m</h3>
+<h3>QGIS project files</h3>
 
-  <div class="figure-grid">
+<figure>
+  <img
+    src="projectfiles.png"
+    alt="Lab 4 QGIS project file and the 1 km, 250 m, and 100 m raster files">
 
-    <figure>
-      <img
-        src="lab04-figure1-1000m.png"
-        alt="Shanghai district raster represented with one kilometre cells">
-
-      <figcaption>
-        <strong>Figure 1A · 1 km district raster.</strong>
-        Shanghai's sixteen districts represented as raster cells.
-        <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
-        <strong>Cell size:</strong> 1,000 m × 1,000 m.
-        The coarse cells visibly simplify the district boundaries.
-      </figcaption>
-    </figure>
-
-
-    <figure>
-      <img
-        src="lab04-figure1-30m.png"
-        alt="Shanghai district raster represented with thirty metre cells">
-
-      <figcaption>
-        <strong>Figure 1B · 30 m district raster.</strong>
-        The same sixteen district polygons represented with much smaller cells.
-        <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
-        <strong>Cell size:</strong> 30 m × 30 m.
-      </figcaption>
-    </figure>
-
-  </div>
+  <figcaption>
+    <strong>Lab 4 project files.</strong>
+    The QGIS project together with the three small raster outputs:
+    1,000 m, 250 m, and 100 m.
+  </figcaption>
+</figure>
 
 
-  <!-- ============================================================
-       FIGURE 2
-       ============================================================ -->
+<!-- ============================================================
+     FIGURE 1
+     ============================================================ -->
 
-  <h3>Figure 2 · The raster boundary staircase</h3>
+<h3>Figure 1 · Shanghai districts at 1 km and 30 m</h3>
+
+<div class="figure-grid">
 
   <figure>
     <img
-      src="lab04-figure2-boundary.png"
-      alt="Close-up of a Shanghai district boundary represented by thirty metre raster cells">
+      src="1000m.png"
+      alt="Shanghai district raster represented with one kilometre cells">
 
     <figcaption>
-      <strong>Figure 2.</strong>
-      Close-up of a district boundary showing the staircase created when
-      a vector boundary is converted into raster cells.
+      <strong>Figure 1A · 1 km district raster.</strong>
+      Shanghai's sixteen districts represented as raster cells.
+      <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
+      <strong>Cell size:</strong> 1,000 m × 1,000 m.
+      The coarse cells visibly simplify the district boundaries.
+    </figcaption>
+  </figure>
+
+
+  <figure>
+    <img
+      src="30m.png"
+      alt="Shanghai district raster represented with thirty metre cells">
+
+    <figcaption>
+      <strong>Figure 1B · 30 m district raster.</strong>
+      The same sixteen district polygons represented with much smaller cells.
       <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
       <strong>Cell size:</strong> 30 m × 30 m.
-      The view is framed so that no individual survey respondent can be
-      located from the image.
+      The finer grid follows the district boundaries more closely.
     </figcaption>
   </figure>
 
-
-  <!-- ============================================================
-       FIGURE 3
-       ============================================================ -->
-
-  <h3>Figure 3 · Records whose district and coordinate disagree</h3>
-
-  <figure>
-    <img
-      src="lab04-figure3-mismatch.png"
-      alt="City-scale map showing Shanghai survey respondents whose reported district disagrees with their coordinate">
-
-    <figcaption>
-      <strong>Figure 3.</strong>
-      City-scale map of the <strong>245 respondents</strong> whose mapped
-      coordinate falls in a different district from the district recorded
-      in the survey.
-      <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
-      The city-scale view shows the spatial pattern without revealing an
-      individual household.
-    </figcaption>
-  </figure>
+</div>
 
 
-  <!-- ============================================================
-       FIGURE 4
-       ============================================================ -->
+<!-- ============================================================
+     FIGURE 2
+     ============================================================ -->
 
-  <h3>Figure 4 · Mapped survey respondents across Shanghai</h3>
+<h3>Figure 2 · The raster boundary staircase</h3>
 
-  <figure>
-    <img
-      src="lab04-figure4-points.png"
-      alt="City-scale map showing mapped Shanghai lockdown survey respondents">
+<figure>
+  <img
+    src="figure2.png"
+    alt="Close-up of a Shanghai district boundary represented by thirty metre raster cells">
 
-    <figcaption>
-      <strong>Figure 4.</strong>
-      City-scale distribution of the
-      <strong>2,795 survey respondents with usable coordinates</strong>.
-      <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
-      The map is intentionally shown at city scale rather than building
-      scale to protect respondent privacy.
-    </figcaption>
-  </figure>
+  <figcaption>
+    <strong>Figure 2.</strong>
+    Close-up of a district boundary showing the staircase created when
+    a vector boundary is converted into raster cells.
+    <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
+    <strong>Cell size:</strong> 30 m × 30 m.
+    The close-up makes the square-cell structure of the raster unmistakable.
+    No individual survey respondent is visible in the image.
+  </figcaption>
+</figure>
 
 
+<!-- ============================================================
+     FIGURE 3
+     ============================================================ -->
+
+<h3>Figure 3 · Records whose district and coordinate disagree</h3>
+
+<figure>
+  <img
+    src="245.png"
+    alt="City-scale map showing Shanghai survey respondents whose reported district disagrees with their coordinate">
+
+  <figcaption>
+    <strong>Figure 3.</strong>
+    City-scale map of the <strong>245 respondents</strong> whose mapped
+    coordinate falls in a different district from the district recorded
+    in the survey.
+    <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
+    <strong>Cell size:</strong> N/A — vector points and district polygons.
+    The city-scale view shows the overall spatial pattern without revealing
+    an individual household.
+  </figcaption>
+</figure>
+
+
+<!-- ============================================================
+     FIGURE 4
+     ============================================================ -->
+
+<h3>Figure 4 · Shanghai districts at 100 m resolution</h3>
+
+<figure>
+  <img
+    src="100m.png"
+    alt="Shanghai district raster represented with one hundred metre cells">
+
+  <figcaption>
+    <strong>Figure 4.</strong>
+    The sixteen Shanghai districts represented using a 100 m raster,
+    providing an intermediate resolution between the coarse 1 km grid
+    and the fine 30 m grid.
+    <strong>Frame:</strong> EPSG:32651 — WGS 84 / UTM Zone 51N.
+    <strong>Cell size:</strong> 100 m × 100 m.
+  </figcaption>
+</figure>
   <!-- ============================================================
        WHAT I FOUND
        ============================================================ -->
