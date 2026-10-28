@@ -247,50 +247,52 @@
        WHAT I FOUND
        ============================================================ -->
 
-  <h2>What I found</h2>
+ <h2>What I found</h2>
 
-  <p>
-    <strong>
-      Unweighted shares from the 2022 Shanghai Lockdown Survey, a purposive
-      online sample: 2,795 of 3,348 respondents had a usable coordinate.
-      Respondents were assigned to districts using a point-in-polygon
-      spatial join. Severe income loss was 15.0 percentage points more
-      common among respondents in the Other 9 districts than among
-      respondents in the Central 7, and the result remained very similar
-      in both sensitivity checks.
-    </strong>
-  </p>
+<p>
+  <strong>
+    Unweighted shares from the 2022 Shanghai Lockdown Survey, a purposive
+    online sample: 2,795 of 3,348 respondents had a usable coordinate.
+    Respondents were assigned to Shanghai districts using a point-in-polygon
+    spatial join in QGIS, and the Central 7 and Other 9 groups were defined
+    from those coordinate-based district assignments. QGIS was used to compute
+    the spatial assignments and district-level shares, while ArcGIS Online was
+    used to create the final choropleth map. The main difference of 15.0
+    percentage points remained very similar in both sensitivity checks—14.7
+    percentage points using respondent-reported districts and 14.6 percentage
+    points after removing shared-coordinate respondents—so the result is
+    reported as stable to these two analytical decisions.
+  </strong>
+</p>
 
-  <p>
-    In the <strong>Central 7 districts</strong>,
-    <strong>285 of 1,081 respondents</strong> reported an income reduction
-    greater than 50%. This produced a severe-income-loss share of
-    <strong>26.4%</strong>, with a rough margin of
-    <strong>±2.7 percentage points</strong>.
-  </p>
+<p>
+  In the <strong>Central 7 districts</strong>,
+  <strong>285 of 1,081 respondents</strong> reported an income reduction
+  greater than 50%. This produced a severe-income-loss share of
+  <strong>26.4%</strong>, with a rough margin of
+  <strong>±2.7 percentage points</strong>.
+</p>
 
-  <p>
-    In the <strong>Other 9 districts</strong>,
-    <strong>709 of 1,714 respondents</strong> reported an income reduction
-    greater than 50%. This produced a share of
-    <strong>41.4%</strong>, with a rough margin of
-    <strong>±2.4 percentage points</strong>.
-  </p>
+<p>
+  In the <strong>Other 9 districts</strong>,
+  <strong>709 of 1,714 respondents</strong> reported an income reduction
+  greater than 50%. This produced a share of
+  <strong>41.4%</strong>, with a rough margin of
+  <strong>±2.4 percentage points</strong>.
+</p>
 
-  <p>
-    The difference between the two groups was therefore
-    <strong>15.0 percentage points</strong>.
-    Among respondents in this survey, severe income loss was substantially
-    more common in the Other 9 districts than in the Central 7 districts.
-  </p>
+<p>
+  The difference between the two groups was therefore
+  <strong>15.0 percentage points</strong>.
+  Among respondents in this survey, severe income loss was substantially
+  more common in the Other 9 districts than in the Central 7 districts.
+</p>
 
-  <p>
-    The district-level map also shows variation within the two broad groups,
-    with district severe-income-loss shares ranging from approximately
-    <strong>20% to 58%</strong>.
-  </p>
-
-
+<p>
+  The district-level map also shows variation within the two broad groups,
+  with district severe-income-loss shares ranging from approximately
+  <strong>20% to 58%</strong>.
+</p>
 
   <!-- ============================================================
        WHAT THIS DOES NOT SHOW
