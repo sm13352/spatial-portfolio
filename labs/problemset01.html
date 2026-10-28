@@ -1,1 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>
+    Problem Set 01 · Spatial Differences in Severe Income Loss ·
+    Sazhida Mukanbetkaliyeva
+  </title>
+
+  <meta
+    name="description"
+    content="Problem Set 1 for SOCS-SHU 205: spatial differences in severe income loss during the 2022 Shanghai lockdown."
+  >
+
+  <link rel="stylesheet" href="../style.css">
+
+  <!-- ArcGIS embedded map component -->
+  <script
+    type="module"
+    src="https://js.arcgis.com/5.1/embeddable-components/">
+  </script>
+</head>
+
+
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+
+<header class="site-head">
+  <div class="wrap">
+
+    <a class="brand" href="../index.html">
+      Sazhida Mukanbetkaliyeva
+    </a>
+
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../index.html#labs">Labs</a>
+    </nav>
+
+  </div>
+</header>
+
+
+
+<main id="main">
+
+<article class="entry">
+
+<div class="wrap wrap-narrow">
+
+
+  <p class="kicker">
+    Problem Set 01 · October 2026
+  </p>
+
+  <h1>
+    Spatial Differences in Severe Income Loss During the 2022 Shanghai Lockdown
+  </h1>
+
+
+
+  <!-- ============================================================
+       THE QUESTION
+       ============================================================ -->
+
+  <h2>The question</h2>
+
+  <p class="lead">
+    Among respondents with a usable coordinate, was the share reporting
+    a lockdown-related income reduction of more than 50% different between
+    Shanghai's seven central districts and the other nine districts?
+  </p>
+
+  <p>
+    Before looking at the results, I expected the share reporting severe
+    income loss to be higher in the <strong>Other 9 districts</strong>
+    than in the <strong>Central 7 districts</strong>.
+  </p>
+
+  <p>
+    My proposed mechanism was that employment in some non-central districts
+    may have depended more on work that could not continue remotely, making
+    income more vulnerable to mobility restrictions and workplace closures.
+    This was an expectation rather than a causal claim because the analysis
+    does not directly measure occupation or ability to work remotely.
+  </p>
+
+  <p>
+    I would have reconsidered this expectation if the two groups had shown
+    similar severe-income-loss shares, if the Central 7 had shown the higher
+    share, or if reasonable sensitivity checks had reversed the direction
+    of the difference.
+  </p>
+
+
+
+  <!-- ============================================================
+       THE DATA
+       ============================================================ -->
+
+  <h2>The data</h2>
+
+  <p>
+    I used the <strong>2022 Shanghai Lockdown Survey</strong> provided
+    through SOCS-SHU 205. The survey was open to Chinese adults aged
+    18 or older who were living in Shanghai during the lockdown.
+    Participants completed an online Chinese-language questionnaire through
+    Wenjuan Xing between <strong>29 April and 1 June 2022</strong>.
+  </p>
+
+  <p>
+    Sampling was <strong>purposive rather than random</strong>.
+    Researchers aimed to recruit approximately 200 respondents from each
+    of Shanghai's 16 districts, with oversampling to account for invalid
+    responses. District respondent counts therefore reflect the sampling
+    design rather than the actual population size of each district.
+  </p>
+
+  <p>
+    The original survey contained <strong>3,348 respondents</strong>.
+    Of these, <strong>2,795 had usable geographic coordinates</strong>
+    and could be included in the coordinate-based spatial analysis.
+    The remaining <strong>553 respondents</strong> were excluded because
+    they could not be spatially assigned using coordinates.
+  </p>
+
+  <p>
+    The outcome variable,
+    <strong>Reduction of your income</strong>, is coded:
+    0 = no income reduction,
+    1 = income reduction below 50%, and
+    2 = income reduction above 50%.
+    I treated code <strong>2</strong> as severe income loss.
+    Among the 2,795 located respondents,
+    <strong>994 reported an income reduction greater than 50%</strong>.
+  </p>
+
+  <p>
+    I also used longitude and latitude, the respondent-reported
+    <code>District</code> field, and the coordinate-based district fields
+    <code>survey_code</code> and <code>name_en</code>.
+    I identified <strong>245 cases</strong> in which the respondent-reported
+    district disagreed with the coordinate-based district.
+  </p>
+
+  <p>
+    The Shanghai district polygons come from
+    <strong>DataV.GeoAtlas</strong>. The boundary file has
+    <strong>no stated licence</strong>, so I use it for derived maps
+    and measurements rather than redistributing the original boundary file.
+  </p>
+
+  <p>
+    Detailed postal addresses had already been removed from the
+    course-provided survey before I received it. Because the remaining
+    coordinate information can still be sensitive, I do not publish the
+    respondent-level survey file or individual respondent locations.
+  </p>
+
+  <p>
+    All percentages reported below are
+    <strong>unweighted shares</strong>. They describe this purposive survey
+    sample and should not be interpreted as representative population
+    estimates for all Shanghai residents.
+  </p>
+
+
+
+  <!-- ============================================================
+       THE METHOD
+       ============================================================ -->
+
+  <h2>The method</h2>
+
+  <p>
+    Respondent points were first created from longitude and latitude in
+    <strong>EPSG:4326 — WGS 84</strong>. The analysis layers were then
+    prepared in
+    <strong>EPSG:32651 — WGS 84 / UTM Zone 51N</strong>
+    for spatial analysis.
+  </p>
+
+  <p>
+    I assigned each respondent to the Shanghai district polygon containing
+    their coordinate using a
+    <strong>point-in-polygon spatial join</strong>.
+    All <strong>2,795 respondents with usable coordinates</strong>
+    received a coordinate-based district assignment.
+  </p>
+
+  <p>
+    I then created two comparison groups.
+    The <strong>Central 7</strong> consisted of Huangpu, Xuhui, Changning,
+    Jing'an, Putuo, Hongkou, and Yangpu.
+    The <strong>Other 9</strong> consisted of Pudong New Area, Minhang,
+    Baoshan, Jiading, Jinshan, Songjiang, Qingpu, Fengxian, and Chongming.
+  </p>
+
+  <p>
+    The coordinate-based grouping produced
+    <strong>1,081 Central 7 respondents</strong> and
+    <strong>1,714 Other 9 respondents</strong>.
+  </p>
+
+  <p>
+    Severe income loss was defined as
+    <strong>Reduction of your income = 2</strong>, meaning an income
+    reduction of more than 50%.
+    For each group, I divided the number of severe-loss cases by the
+    group denominator to calculate an unweighted share.
+  </p>
+
+  <p>
+    I compared the two shares using their percentage-point difference.
+    I also calculated a rough uncertainty margin for each share using
+    approximately two standard errors:
+  </p>
+
+  <p>
+    <strong>
+      Rough margin =
+      2 × √[(share × (1 − share)) / n] × 100
+    </strong>
+  </p>
+
+  <p>
+    For the district-level choropleth, I created a binary
+    <code>loss50</code> variable, coded 1 for severe income loss and
+    0 otherwise. In QGIS, I used
+    <strong>Join Attributes by Location (Summary)</strong>
+    with district polygons as the base layer and respondent points as
+    the comparison layer.
+  </p>
+
+  <p>
+    I calculated the district fields
+    <code>n</code>, <code>share_pct</code>, and <code>moe_pts</code>,
+    then mapped <code>share_pct</code> in ArcGIS Online using a
+    <strong>sequential purple ramp with five equal-interval classes</strong>.
+    All 16 districts contained at least <strong>20 respondents</strong>,
+    so no district required suppression.
+  </p>
+
+
+
+  <!-- ============================================================
+       THE MAP
+       ============================================================ -->
+
+  <h2>The map</h2>
+
+  <p>
+    The choropleth maps the
+    <strong>share of surveyed respondents reporting an income reduction
+    greater than 50%</strong>, not the raw number of respondents.
+    Darker purple represents a higher severe-income-loss share.
+  </p>
+
+
+  <!-- REQUIRED PUBLIC SCREENSHOT -->
+
+  <figure>
+
+    <img
+      src="problemset01-map.png"
+      alt="Shanghai district choropleth showing that severe income loss among surveyed respondents varied across districts, with darker purple indicating a higher share reporting more than 50 percent income reduction."
+      style="width:100%; height:auto;"
+    >
+
+    <figcaption>
+      <strong>
+        Figure 1 · District-level share of respondents reporting an
+        income reduction greater than 50% during the 2022 Shanghai lockdown.
+      </strong>
+      The left panel shows the Pudong New Area popup with the district
+      share, sample size, and rough margin. The middle panel shows the
+      district-level choropleth, where darker purple indicates a higher
+      severe-income-loss share. The right panel shows the five
+      equal-interval legend classes.
+      <strong>Minimum reporting threshold:</strong> n = 20.
+      <strong>Source:</strong> 2022 Shanghai Lockdown Survey, unweighted;
+      Shanghai district boundaries from DataV, retrieved by the course
+      in September 2026 (no stated licence).
+    </figcaption>
+
+  </figure>
+
+
+
+  <!-- OPTIONAL INTERACTIVE MAP -->
+
+  <h3>Interactive map</h3>
+
+  <p>
+    The interactive version is hosted through the NYU ArcGIS Online
+    organization. Because the survey map is shared within NYU rather than
+    publicly, viewers may be asked to sign in with an authorized NYU account.
+  </p>
+
+  <div style="width:100%; overflow:hidden;">
+
+    <arcgis-embedded-map
+      style="height:600px; width:100%;"
+      item-id="bf33f75b98714e8f90b40bc3c56cba21"
+      theme="light"
+      time-zone-label-enabled
+      center="121.54069840823746,31.153683227928273"
+      scale="1155581.108577"
+      portal-url="https://nyuds.maps.arcgis.com">
+    </arcgis-embedded-map>
+
+  </div>
+
+
+
+  <!-- ============================================================
+       WHAT I FOUND
+       ============================================================ -->
+
+  <h2>What I found</h2>
+
+  <p>
+    <strong>
+      Unweighted shares from the 2022 Shanghai Lockdown Survey,
+      a purposive online sample: 2,795 of 3,348 respondents had a usable
+      coordinate. Respondents were assigned to districts using a
+      point-in-polygon spatial join. Severe income loss was 15.0 percentage
+      points more common among respondents in the Other 9 districts than
+      in the Central 7. The result remained in the same direction and at
+      almost the same size under both sensitivity checks.
+    </strong>
+  </p>
+
+
+  <h3>Main result</h3>
+
+  <p>
+    In the <strong>Central 7 districts</strong>,
+    <strong>285 of 1,081 respondents</strong> reported an income reduction
+    greater than 50%, producing a severe-income-loss share of
+    <strong>26.4%</strong> with a rough margin of
+    <strong>±2.7 percentage points</strong>.
+  </p>
+
+  <p>
+    In the <strong>Other 9 districts</strong>,
+    <strong>709 of 1,714 respondents</strong> reported severe income loss,
+    producing a share of <strong>41.4%</strong> with a rough margin of
+    <strong>±2.4 percentage points</strong>.
+  </p>
+
+  <p>
+    The difference was therefore
+    <strong>41.4% − 26.4% = 15.0 percentage points</strong>.
+    The approximate ranges were
+    <strong>23.7%–29.1%</strong> for the Central 7 and
+    <strong>39.0%–43.8%</strong> for the Other 9.
+  </p>
+
+
+  <!-- RESULTS TABLE -->
+
+  <div style="overflow-x:auto;">
+
+    <table style="width:100%; border-collapse:collapse; margin:1.5rem 0;">
+
+      <thead>
+        <tr>
+          <th style="text-align:left; padding:10px; border-bottom:1px solid #999;">
+            Group
+          </th>
+          <th style="text-align:left; padding:10px; border-bottom:1px solid #999;">
+            Respondents (n)
+          </th>
+          <th style="text-align:left; padding:10px; border-bottom:1px solid #999;">
+            &gt;50% income-loss cases
+          </th>
+          <th style="text-align:left; padding:10px; border-bottom:1px solid #999;">
+            Share
+          </th>
+          <th style="text-align:left; padding:10px; border-bottom:1px solid #999;">
+            Rough margin
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr>
+          <td style="padding:10px; border-bottom:1px solid #ddd;">
+            Central 7 districts
+          </td>
+          <td style="padding:10px; border-bottom:1px solid #ddd;">
+            1,081
+          </td>
+          <td style="padding:10px; border-bottom:1px solid #ddd;">
+            285
+          </td>
+          <td style="padding:10px; border-bottom:1px solid #ddd;">
+            26.4%
+          </td>
+          <td style="padding:10px; border-bottom:1px solid #ddd;">
+            ±2.7 pp
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:10px; border-bottom:1px solid #ddd;">
+            Other 9 districts
+          </td>
+          <td style="padding:10px; border-bottom:1px solid #ddd;">
+            1,714
+          </td>
+          <td style="padding:10px; border-bottom:1px solid #ddd;">
+            709
+          </td>
+          <td style="padding:10px; border-bottom:1px solid #ddd;">
+            41.4%
+          </td>
+          <td style="padding:10px; border-bottom:1px solid #ddd;">
+            ±2.4 pp
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:10px;">
+            <strong>Difference</strong>
+          </td>
+          <td style="padding:10px;">—</td>
+          <td style="padding:10px;">—</td>
+          <td style="padding:10px;">
+            <strong>+15.0 pp</strong>
+          </td>
+          <td style="padding:10px;">—</td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+
+  <p>
+    At the district level, severe-income-loss shares ranged from
+    approximately <strong>20% to 58%</strong>.
+    This shows that the broad Central 7 versus Other 9 contrast also
+    contains substantial variation among individual districts.
+  </p>
+
+
+
+  <h3>Sensitivity checks</h3>
+
+  <p>
+    I changed two analytical decisions one at a time while keeping the
+    outcome and the Central 7 versus Other 9 comparison fixed.
+  </p>
+
+  <p>
+    <strong>Alternative 1 — respondent-reported district:</strong>
+    replacing the coordinate-based district assignment with the
+    respondent-reported <code>District</code> field produced
+    <strong>27.1%</strong> in the Central 7 and
+    <strong>41.8%</strong> in the Other 9, a difference of
+    <strong>14.7 percentage points</strong>.
+  </p>
+
+  <p>
+    <strong>Alternative 2 — remove shared coordinates:</strong>
+    after dropping all <strong>234 respondents</strong> located at shared
+    coordinates, the Central 7 contained 939 respondents, with
+    <strong>253 severe-loss cases = 26.9%</strong>.
+    The Other 9 contained 1,622 respondents, with
+    <strong>674 severe-loss cases = 41.6%</strong>.
+    Using the underlying proportions, the difference was
+    <strong>14.6 percentage points</strong>.
+  </p>
+
+  <p>
+    The result therefore
+    <strong>survived both sensitivity checks</strong>:
+    <strong>15.0 pp → 14.7 pp → 14.6 pp</strong>.
+    The Other 9 remained higher than the Central 7 under both alternative
+    specifications.
+  </p>
+
+
+
+  <!-- ============================================================
+       WHAT THIS DOES NOT SHOW
+       ============================================================ -->
+
+  <h2>What this does not show</h2>
+
+  <p>
+    My analysis cannot see the
+    <strong>553 respondents without usable coordinates</strong>.
+    It also cannot represent people outside the survey's eligible or
+    reachable online population. Because recruitment was purposive and
+    the estimates are unweighted, the results should not be generalized
+    directly to all Shanghai residents.
+  </p>
+
+  <p>
+    Spatial assignment is also imperfect.
+    The main analysis retained
+    <strong>234 respondents at shared coordinates</strong>, some of which
+    may represent geocoder fallback locations rather than precise
+    residential locations.
+  </p>
+
+  <p>
+    In addition,
+    <strong>245 respondents</strong> had a mismatch between their
+    respondent-reported district and their coordinate-based district.
+    The sensitivity checks suggest that these issues do not materially
+    change the broad Central 7 versus Other 9 comparison, but they remain
+    limitations of individual spatial assignment.
+  </p>
+
+  <p>
+    The <strong>&gt;50% income-loss threshold</strong>,
+    the <strong>Central 7 versus Other 9 grouping</strong>, and the
+    <strong>five equal-interval choropleth classes</strong> are analytical
+    choices. Different defensible choices could change how the spatial
+    pattern is summarized or visualized.
+  </p>
+
+  <p>
+    The analysis also identifies an
+    <strong>association rather than a causal relationship</strong>.
+    It cannot establish that living outside the Central 7 caused severe
+    income loss, and it does not control for occupation, baseline income,
+    employment sector, or ability to work remotely.
+  </p>
+
+  <p>
+    A Shanghai social-services or emergency-assistance planner could use
+    this result as evidence that severe economic disruption among surveyed
+    respondents was spatially uneven and as a reason to investigate
+    non-central districts more closely or collect more representative
+    district-level data.
+  </p>
+
+  <p>
+    The result would <strong>not</strong> justify assigning assistance to
+    individuals solely according to their district, claiming that district
+    location caused income loss, or allocating citywide resources directly
+    in proportion to these unweighted survey percentages.
+  </p>
+
+
+
+  <!-- ============================================================
+       PRIVACY AND SHARING
+       ============================================================ -->
+
+  <h3>Privacy and sharing</h3>
+
+  <p>
+    The public portfolio contains only aggregated district-level results.
+    I do not publish respondent-level coordinates, the source survey CSV,
+    or maps that could make individual respondents locatable.
+  </p>
+
+  <p>
+    The ArcGIS web map is shared within the
+    <strong>NYU organization</strong>, not with Everyone.
+    The public portfolio therefore uses a screenshot of the aggregate map
+    as its primary public figure.
+  </p>
+
+
+
+  <!-- ============================================================
+       AI DISCLOSURE
+       ============================================================ -->
+
+  <h3>AI disclosure</h3>
+
+  <p>
+    I used ChatGPT to clarify parts of the Problem Set 1 instructions,
+    troubleshoot QGIS and ArcGIS Online steps, check calculations,
+    review the consistency of my report and presentation, and check my
+    HTML code. I verified the numerical results using my own QGIS and
+    ArcGIS outputs, the course guide, and my completed analysis.
+    The research question, analytical decisions, maps, screenshots,
+    calculations, and final interpretation are based on my own problem-set
+    work.
+  </p>
+
+
+
+  <a class="back" href="../index.html#labs">
+    ← Back to all labs
+  </a>
+
+
+</div>
+
+</article>
+
+</main>
+
+
+
+<footer class="site-foot">
+
+  <div class="wrap wrap-narrow">
+
+    <p>
+      Sazhida Mukanbetkaliyeva · SOCS-SHU 205 ·
+      NYU Shanghai · Fall 2026
+    </p>
+
+  </div>
+
+</footer>
+
+
+</body>
+</html>
