@@ -187,60 +187,111 @@
 
 
 
-  <!-- ============================================================
-       THE MAP
-       ============================================================ -->
+ <!-- ============================================================
+     PUT THIS INSIDE THE <head> SECTION OF ps-01.html
+     ============================================================ -->
 
-  <h2>The map</h2>
+<script
+  type="module"
+  src="https://js.arcgis.com/5.1/embeddable-components/">
+</script>
 
-  <p>
-    The interactive choropleth shows the
-    <strong>district-level percentage of surveyed respondents reporting
-    an income reduction greater than 50%</strong>.
-    Darker purple indicates a higher severe-income-loss share.
-    The map shows <strong>shares rather than raw respondent counts</strong>.
-  </p>
 
-  <p>
+<!-- ============================================================
+     THE MAP
+     Put this inside the <body> where your map section goes.
+     
+     IMPORTANT:
+     Upload the screenshot file to the same /labs folder.
+     Exact filename: ps01-map.png
+     ============================================================ -->
+
+<h2>The map</h2>
+
+<p>
+  The choropleth shows the
+  <strong>district-level percentage of surveyed respondents reporting
+  an income reduction greater than 50%</strong>.
+  Darker purple indicates a higher severe-income-loss share.
+  The map shows <strong>shares rather than raw respondent counts</strong>.
+</p>
+
+<p>
+  Districts are displayed using
+  <strong>five equal-interval classes</strong> and a minimum reporting
+  threshold of <strong>n = 20</strong>.
+  All 16 districts met this threshold, so no district required suppression.
+</p>
+
+
+<!-- MAP SCREENSHOT -->
+
+<h3>Map screenshot</h3>
+
+<figure>
+
+  <img
+    src="ps01-map"
+    alt="District-level choropleth map of Shanghai showing the percentage of surveyed respondents reporting an income reduction greater than 50 percent, with darker purple indicating a higher share."
+    style="width:100%; height:auto;"
+  >
+
+  <figcaption>
+    <strong>
+      Figure 1 · District-level share of respondents reporting an income
+      reduction greater than 50% during the 2022 Shanghai lockdown.
+    </strong>
+    Darker purple indicates a higher percentage of surveyed respondents
+    reporting severe income loss. The mapped unit is the
+    <strong>percentage of respondents within each district</strong>,
+    rather than the raw number of respondents.
     Districts are displayed using
-    <strong>five equal-interval classes</strong> and a minimum reporting
-    threshold of <strong>n = 20</strong>. Click a district to see its
-    estimated share, sample size, and rough margin.
-  </p>
+    <strong>five equal-interval classes</strong>.
+    The minimum reporting threshold is <strong>n = 20</strong>;
+    all 16 districts met this threshold, so no district required suppression.
+    <strong>Source:</strong> 2022 Shanghai Lockdown Survey, unweighted;
+    Shanghai district boundaries from DataV, retrieved by the course in
+    September 2026 (no stated licence).
+  </figcaption>
 
-  <h3>Interactive map</h3>
+</figure>
 
-  <p>
-    The map is hosted through the NYU ArcGIS Online organization.
-    Because it is shared within NYU, viewers may be asked to sign in
-    with an authorized NYU account.
-  </p>
 
-  <div style="width:100%; overflow:hidden;">
+<!-- INTERACTIVE MAP -->
 
-    <arcgis-embedded-map
-      style="height:600px; width:100%;"
-      item-id="bf33f75b98714e8f90b40bc3c56cba21"
-      theme="light"
-      time-zone-label-enabled
-      center="121.54069840823746,31.153683227928273"
-      scale="1155581.108577"
-      portal-url="https://nyuds.maps.arcgis.com">
-    </arcgis-embedded-map>
+<h3>Interactive map</h3>
 
-  </div>
+<p>
+  The interactive version is hosted through the NYU ArcGIS Online
+  organization. Click a district to view its severe-income-loss share,
+  sample size, and rough margin. Because the map is shared within NYU,
+  viewers may be asked to sign in with an authorized NYU account.
+</p>
 
-  <p>
-    <strong>Mapped unit:</strong>
-    percentage of respondents within each district reporting an income
-    reduction greater than 50%.
-    <strong>Minimum reporting threshold:</strong> n = 20.
-    <strong>Source:</strong>
-    2022 Shanghai Lockdown Survey, unweighted; Shanghai district boundaries
-    from DataV, retrieved by the course in September 2026
-    (no stated licence).
-  </p>
+<div style="width:100%; overflow:hidden;">
 
+  <arcgis-embedded-map
+    style="height:600px; width:100%;"
+    item-id="bf33f75b98714e8f90b40bc3c56cba21"
+    theme="light"
+    time-zone-label-enabled
+    center="121.54069840823746,31.153683227928273"
+    scale="1155581.108577"
+    portal-url="https://nyuds.maps.arcgis.com">
+  </arcgis-embedded-map>
+
+</div>
+
+<p>
+  <strong>Mapped unit:</strong>
+  percentage of respondents within each district reporting an income
+  reduction greater than 50%.
+  <strong>Minimum reporting threshold:</strong> n = 20.
+  <strong>Source:</strong>
+  2022 Shanghai Lockdown Survey, unweighted; Shanghai district boundaries
+  from DataV, retrieved by the course in September 2026
+  (no stated licence).
+</p>
 
 
   <!-- ============================================================
@@ -248,6 +299,8 @@
        ============================================================ -->
 
  <h2>What I found</h2>
+
+<h3>Declaration</h3>
 
 <p>
   <strong>
