@@ -1,1 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Lab 05 · From Samples to Surface · Sazhida Mukanbetkaliyeva</title>
+
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../index.html">Sazhida Mukanbetkaliyeva</a>
+
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../index.html#labs">Labs</a>
+    </nav>
+  </div>
+</header>
+
+
+<main id="main">
+
+<article class="entry">
+
+<div class="wrap wrap-narrow">
+
+  <p class="kicker">Lab 05 · November 2026</p>
+
+  <h1>From Samples to Surface</h1>
+
+
+  <!-- ============================================================
+       THE QUESTION
+       ============================================================ -->
+
+  <h2>The question</h2>
+
+  <p class="lead">
+    Can Field 5 support corn based on the available soil samples, and how
+    trustworthy is an interpolated phosphorus map in places where samples
+    are sparse?
+  </p>
+
+
+  <!-- ============================================================
+       THE DATA
+       ============================================================ -->
+
+  <h2>The data</h2>
+
+  <p>
+    The farm is synthetic and contains five fields and 118 soil samples.
+    The phosphorus variable <code>P</code> was stored on two different scales,
+    so I corrected the Batch B values by dividing them by 100 and created
+    <code>P_fix</code>.
+  </p>
+
+
+  <!-- ============================================================
+       THE METHOD
+       ============================================================ -->
+
+  <h2>The method</h2>
+
+  <p>
+    I first selected samples that met the corn requirements for pH,
+    phosphorus, and potassium. I then interpolated <code>P_fix</code> with
+    inverse distance weighting using 10 m cells and compared powers
+    1, 2, and 4.
+  </p>
+
+  <p>
+    I compared the power-2 surface with the synthetic truth raster and
+    calculated an error raster as
+    <code>idw_p2 - truth</code>.
+  </p>
+
+
+  <!-- ============================================================
+       THE MAP
+       ============================================================ -->
+
+  <h2>The map</h2>
+
+  <p>
+    The figures show how the result changed from the original attribute
+    query to the interpolated surface and finally to the error map.
+  </p>
+
+
+  <h3>Figure 1 · Initial corn-suitable sample selection</h3>
+
+  <figure>
+    <img
+      src="lab05-selection.png"
+      alt="QGIS map showing 31 soil samples selected as suitable for corn using the original phosphorus values"
+      style="width:100%; height:auto;">
+
+    <figcaption>
+      <strong>Figure 1.</strong>
+      Attribute query using the original <code>P</code> values.
+      The query selected <strong>31 samples</strong> that met the corn
+      thresholds for pH, P, and K.
+    </figcaption>
+  </figure>
+
+
+  <h3>Figure 2 · IDW power 2 compared with the truth</h3>
+
+  <figure>
+    <img
+      src="lab05-truth-vs-idw.png"
+      alt="Side-by-side comparison of the true phosphorus surface and IDW interpolation with power 2"
+      style="width:100%; height:auto;">
+
+    <figcaption>
+      <strong>Figure 2.</strong>
+      IDW interpolation, <strong>power 2</strong>, with
+      <strong>10 m cells</strong>, compared with the synthetic phosphorus
+      truth raster at the same scale. Red indicates lower phosphorus and
+      green indicates higher phosphorus.
+    </figcaption>
+  </figure>
+
+
+  <h3>Figure 3 · Error in the IDW surface</h3>
+
+  <figure>
+    <img
+      src="lab05-error.png"
+      alt="Error raster showing the difference between IDW power 2 phosphorus estimates and the true phosphorus surface"
+      style="width:100%; height:auto;">
+
+    <figcaption>
+      <strong>Figure 3.</strong>
+      Raster error calculated as
+      <code>IDW power 2 − truth</code> using 10 m cells.
+      Red shows where the interpolated map overestimated phosphorus,
+      blue shows where it underestimated phosphorus, and values near
+      white are close to zero error.
+    </figcaption>
+  </figure>
+
+
+  <!-- ============================================================
+       WHAT I FOUND
+       ============================================================ -->
+
+  <h2>What I found</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Question</th>
+        <th>Answer</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td><strong>Q1</strong></td>
+        <td>
+          The rows using the bigger P scale are from Batch B, measured
+          by the Platte Valley lab, and they are in Fields 4 and 5.
+        </td>
+      </tr>
+
+      <tr>
+        <td><strong>Q2</strong></td>
+        <td>
+          Using P, 31 samples suited corn. Using P_fix, 46 samples suited
+          corn. The 15 additional suitable samples were in Fields 4 and 5.
+        </td>
+      </tr>
+
+      <tr>
+        <td><strong>Q3</strong></td>
+        <td>
+          Field 5 was about 338 m from the nearest sample, while the most
+          distant spot in Field 1 was about 128 m from the nearest sample.
+          I expected the interpolated map to be least trustworthy in Field 5.
+        </td>
+      </tr>
+
+      <tr>
+        <td><strong>Q4</strong></td>
+        <td>
+          No. None of the three IDW powers showed a clear phosphorus
+          problem inside Field 5, although the surfaces responded differently
+          to nearby samples.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>
+    The main problem was not the IDW calculation itself but the lack of
+    samples in part of Field 5. The power-2 map suggested almost no phosphorus
+    shortage there even though the truth raster showed a large depleted area.
+  </p>
+
+
+  <!-- ============================================================
+       WHAT THIS DOES NOT SHOW
+       ============================================================ -->
+
+  <h2>What this does not show</h2>
+
+  <p>
+    IDW estimates values between the measurements that are available, but it
+    cannot reveal a local pattern that was never sampled. Changing the power
+    changes how the existing samples are weighted, not the information that
+    is missing between them.
+  </p>
+
+
+  <!-- ============================================================
+       AI DISCLOSURE
+       ============================================================ -->
+
+  <h3>AI disclosure</h3>
+
+  <p>
+    I used ChatGPT to clarify the QGIS steps, troubleshoot the Field Calculator
+    and raster workflow, and review my HTML code. I checked the results using
+    my QGIS outputs, the provided truth raster, and the Lab 5 instructions.
+  </p>
+
+
+  <a class="back" href="../index.html#labs">← Back to all labs</a>
+
+</div>
+
+</article>
+
+</main>
+
+
+<footer class="site-foot">
+  <div class="wrap wrap-narrow">
+    <p>
+      Sazhida Mukanbetkaliyeva · SOCS-SHU 205 · NYU Shanghai · Fall 2026
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
