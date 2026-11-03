@@ -89,66 +89,81 @@
        ============================================================ -->
 
   <h2>The map</h2>
+<p>
+  The figures show how the result changed from the original attribute
+  query to the interpolated surface and finally to the error map.
+</p>
 
-  <p>
-    The figures show how the result changed from the original attribute
-    query to the interpolated surface and finally to the error map.
-  </p>
+
+<h3>Figure 1 · Initial corn-suitable sample selection</h3>
+
+<figure>
+  <img
+    src="screenshot1.png"
+    alt="QGIS map showing 31 soil samples selected as suitable for corn using the original phosphorus values"
+    style="width:100%; height:auto;">
+
+  <figcaption>
+    <strong>Figure 1.</strong>
+    Attribute query using the original <code>P</code> values.
+    The query selected <strong>31 samples</strong> that met the corn
+    thresholds for pH, P, and K.
+  </figcaption>
+</figure>
 
 
-  <h3>Figure 1 · Initial corn-suitable sample selection</h3>
+<h3>Figure 2 · IDW power 2 compared with the truth</h3>
+
+<div class="figure-grid">
 
   <figure>
     <img
-      src="lab05-selection.png"
-      alt="QGIS map showing 31 soil samples selected as suitable for corn using the original phosphorus values"
+      src="screenshot2_lab05_truth.png"
+      alt="True phosphorus surface across the synthetic farm"
       style="width:100%; height:auto;">
 
     <figcaption>
-      <strong>Figure 1.</strong>
-      Attribute query using the original <code>P</code> values.
-      The query selected <strong>31 samples</strong> that met the corn
-      thresholds for pH, P, and K.
+      <strong>Figure 2A · Truth.</strong>
+      True phosphorus values at 10 m resolution.
+      Red indicates lower phosphorus and green indicates higher phosphorus.
     </figcaption>
   </figure>
 
 
-  <h3>Figure 2 · IDW power 2 compared with the truth</h3>
-
   <figure>
     <img
-      src="lab05-truth-vs-idw.png"
-      alt="Side-by-side comparison of the true phosphorus surface and IDW interpolation with power 2"
+      src="screenshot2_idw_p2.png"
+      alt="IDW phosphorus interpolation using power 2"
       style="width:100%; height:auto;">
 
     <figcaption>
-      <strong>Figure 2.</strong>
-      IDW interpolation, <strong>power 2</strong>, with
-      <strong>10 m cells</strong>, compared with the synthetic phosphorus
-      truth raster at the same scale. Red indicates lower phosphorus and
-      green indicates higher phosphorus.
+      <strong>Figure 2B · IDW, power 2.</strong>
+      Interpolated phosphorus surface using power 2 and 10 m cells.
+      Red indicates lower phosphorus and green indicates higher phosphorus.
     </figcaption>
   </figure>
 
+</div>
 
-  <h3>Figure 3 · Error in the IDW surface</h3>
 
-  <figure>
-    <img
-      src="lab05-error.png"
-      alt="Error raster showing the difference between IDW power 2 phosphorus estimates and the true phosphorus surface"
-      style="width:100%; height:auto;">
+<h3>Figure 3 · Error in the IDW surface</h3>
 
-    <figcaption>
-      <strong>Figure 3.</strong>
-      Raster error calculated as
-      <code>IDW power 2 − truth</code> using 10 m cells.
-      Red shows where the interpolated map overestimated phosphorus,
-      blue shows where it underestimated phosphorus, and values near
-      white are close to zero error.
-    </figcaption>
-  </figure>
+<figure>
+  <img
+    src="screenshot3.png"
+    alt="Error raster showing the difference between IDW power 2 phosphorus estimates and the true phosphorus surface"
+    style="width:100%; height:auto;">
 
+  <figcaption>
+    <strong>Figure 3.</strong>
+    Raster error calculated as
+    <code>IDW power 2 − truth</code> using 10 m cells.
+    Red shows where the interpolated map overestimated phosphorus,
+    blue shows where it underestimated phosphorus, and values near
+    white are close to zero error.
+  </figcaption>
+</figure>
+ 
 
   <!-- ============================================================
        WHAT I FOUND
