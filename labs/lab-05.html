@@ -169,59 +169,98 @@
        WHAT I FOUND
        ============================================================ -->
 
-  <h2>What I found</h2>
+ <h2>What I found</h2>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Question</th>
-        <th>Answer</th>
-      </tr>
-    </thead>
+<style>
+  .lab05-results {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 1.5rem 0 2rem;
+    border: 1px solid #374151;
+    border-radius: 10px;
+    overflow: hidden;
+  }
 
-    <tbody>
-      <tr>
-        <td><strong>Q1</strong></td>
-        <td>
-          The rows using the bigger P scale are from Batch B, measured
-          by the Platte Valley lab, and they are in Fields 4 and 5.
-        </td>
-      </tr>
+  .lab05-results th,
+  .lab05-results td {
+    padding: 16px 18px;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid #374151;
+  }
 
-      <tr>
-        <td><strong>Q2</strong></td>
-        <td>
-          Using P, 31 samples suited corn. Using P_fix, 46 samples suited
-          corn. The 15 additional suitable samples were in Fields 4 and 5.
-        </td>
-      </tr>
+  .lab05-results th {
+    background: #1a2029;
+    font-weight: 700;
+  }
 
-      <tr>
-        <td><strong>Q3</strong></td>
-        <td>
-          Field 5 was about 338 m from the nearest sample, while the most
-          distant spot in Field 1 was about 128 m from the nearest sample.
-          I expected the interpolated map to be least trustworthy in Field 5.
-        </td>
-      </tr>
+  .lab05-results th:first-child,
+  .lab05-results td:first-child {
+    width: 90px;
+    font-weight: 700;
+    border-right: 1px solid #374151;
+  }
 
-      <tr>
-        <td><strong>Q4</strong></td>
-        <td>
-          No. None of the three IDW powers showed a clear phosphorus
-          problem inside Field 5, although the surfaces responded differently
-          to nearby samples.
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  .lab05-results tbody tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.03);
+  }
 
-  <p>
-    The main problem was not the IDW calculation itself but the lack of
-    samples in part of Field 5. The power-2 map suggested almost no phosphorus
-    shortage there even though the truth raster showed a large depleted area.
-  </p>
+  .lab05-results tbody tr:last-child td {
+    border-bottom: none;
+  }
+</style>
 
+<table class="lab05-results">
+  <thead>
+    <tr>
+      <th>Question</th>
+      <th>Answer</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td><strong>Q1</strong></td>
+      <td>
+        The rows using the bigger P scale are from Batch B, measured
+        by the Platte Valley lab, and they are in Fields 4 and 5.
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>Q2</strong></td>
+      <td>
+        Using P, 31 samples suited corn. Using P_fix, 46 samples suited
+        corn. The 15 additional suitable samples were in Fields 4 and 5.
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>Q3</strong></td>
+      <td>
+        Field 5 was about 338 m from the nearest sample, while the most
+        distant spot in Field 1 was about 128 m from the nearest sample.
+        I expected the interpolated map to be least trustworthy in Field 5.
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong>Q4</strong></td>
+      <td>
+        No. None of the three IDW powers showed a clear phosphorus
+        problem inside Field 5, although the surfaces responded differently
+        to nearby samples.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  The main problem was not the IDW calculation itself but the lack of
+  samples in part of Field 5. The power-2 map suggested almost no phosphorus
+  shortage there even though the truth raster showed a large depleted area.
+</p>
 
   <!-- ============================================================
        WHAT THIS DOES NOT SHOW
