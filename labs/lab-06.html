@@ -1,1 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Lab 06 · Predicting from Pixels · Sazhida Mukanbetkaliyeva</title>
+
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+
+<header class="site-head">
+  <div class="wrap">
+
+    <a class="brand" href="../index.html">
+      Sazhida Mukanbetkaliyeva
+    </a>
+
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../index.html#labs">Labs</a>
+    </nav>
+
+  </div>
+</header>
+
+
+<main id="main">
+
+<article class="entry">
+
+<div class="wrap wrap-narrow">
+
+  <p class="kicker">Lab 06 · November 2026</p>
+
+  <h1>Predicting from Pixels</h1>
+
+
+  <!-- ============================================================
+       THE QUESTION
+       ============================================================ -->
+
+  <h2>The question</h2>
+
+  <p class="lead">
+    How well can nighttime-light satellite data predict economic activity
+    across China's provinces, and do the prediction errors cluster spatially?
+  </p>
+
+
+  <!-- ============================================================
+       THE DATA
+       ============================================================ -->
+
+  <h2>The data</h2>
+
+  <p>
+    The analysis uses 31 Chinese provinces, autonomous regions, and
+    municipalities with preliminary 2024 GDP data and 2024 nighttime-light
+    measurements from VIIRS annual composites. Under the queen-contiguity
+    neighbour rule, Hainan was kept in the analysis even though it had no
+    neighbouring province.
+  </p>
+
+
+  <!-- ============================================================
+       THE METHOD
+       ============================================================ -->
+
+  <h2>The method</h2>
+
+  <p>
+    I first compared nighttime-light raster data from 2014 and 2024 and used
+    Earth Engine to reduce raster cells inside selected regions to mean
+    radiance values.
+  </p>
+
+  <p>
+    I then compared two log-scale regression models. Model A predicted GDP
+    per person from light per square kilometre, while Model B predicted total
+    GDP from total light. I tested the residuals using Moran's I and 999
+    permutations under two neighbour rules: queen contiguity and four nearest
+    neighbours.
+  </p>
+
+
+  <!-- ============================================================
+       THE MAP
+       ============================================================ -->
+
+  <h2>The map</h2>
+
+  <p>
+    The first figure shows the change in nighttime light between 2014 and
+    2024 at a close enough scale to see individual raster cells. The second
+    figure shows the regression and spatial-residual results in the Earth
+    Engine Console.
+  </p>
+
+
+  <h3>Figure 1 · Nighttime-light change in Kazakhstan</h3>
+
+  <figure>
+    <img
+      src="screenshot1.2(1).png"
+      alt="Google Earth Engine map showing nighttime-light change from 2014 to 2024 in Kazakhstan with individual raster cells visible"
+      style="width:100%; height:auto;">
+
+    <figcaption>
+      <strong>Figure 1.</strong>
+      VIIRS annual composites, <strong>2024 minus 2014</strong>.
+      The map is zoomed in enough to show the individual raster cells.
+      I chose Kazakhstan because it is a place I know well and wanted to
+      examine how nighttime light changed there over the ten-year period.
+    </figcaption>
+  </figure>
+
+
+  <h3>Figure 2 · Regression and residual test</h3>
+
+  <figure>
+    <img
+      src="screenshot2.png"
+      alt="Google Earth Engine Console showing Model A and Model B R-squared values and Moran's I residual tests using queen contiguity"
+      style="width:100%; height:auto;">
+
+    <figcaption>
+      <strong>Figure 2.</strong>
+      Regression results and residual spatial-autocorrelation test using
+      <strong>queen contiguity</strong> and
+      <strong>999 permutations</strong>.
+      Model B had the higher R² but also showed significant spatial
+      clustering in its residuals.
+    </figcaption>
+  </figure>
+
+
+  <!-- ============================================================
+       EARTH ENGINE SCRIPT
+       ============================================================ -->
+
+  <h3>Earth Engine script</h3>
+
+  <p>
+    <a
+      href="https://code.earthengine.google.com/9ca2cc55e7a214d969a3f9d02d0ed009"
+      target="_blank"
+      rel="noopener">
+      Open the Google Earth Engine script
+    </a>
+  </p>
+
+
+  <!-- ============================================================
+       WHAT I FOUND
+       ============================================================ -->
+
+  <h2>What I found</h2>
+
+
+  <style>
+    .lab06-results {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin: 1.5rem 0 2rem;
+      border: 1px solid #374151;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .lab06-results th,
+    .lab06-results td {
+      padding: 16px 18px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid #374151;
+    }
+
+    .lab06-results th {
+      background: #1a2029;
+      font-weight: 700;
+    }
+
+    .lab06-results th:first-child,
+    .lab06-results td:first-child {
+      width: 90px;
+      font-weight: 700;
+      border-right: 1px solid #374151;
+    }
+
+    .lab06-results tbody tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .lab06-results tbody tr:last-child td {
+      border-bottom: none;
+    }
+  </style>
+
+
+  <table class="lab06-results">
+
+    <thead>
+      <tr>
+        <th>Question</th>
+        <th>Answer</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr>
+        <td><strong>Q1</strong></td>
+
+        <td>
+          The Yangtze delta 2024/2014 nighttime-light ratio was
+          <strong>1.5996</strong>, and the Changtang plateau mean radiance
+          in 2024 was <strong>0.00194</strong>. Model A had
+          <strong>R² = 0.4561</strong>, while Model B had
+          <strong>R² = 0.8675</strong>. Before checking the spatial pattern
+          of the residuals, I would report Model B because it explains
+          substantially more of the variation in GDP than Model A.
+        </td>
+      </tr>
+
+
+      <tr>
+        <td><strong>Q2</strong></td>
+
+        <td>
+          Model A had <strong>Moran's I = −0.0023</strong>, with
+          <strong>p = 0.382</strong> in the first run and
+          <strong>p = 0.334</strong> in the second run. Model B had
+          <strong>Moran's I = 0.2422</strong>, with
+          <strong>p = 0.016</strong> in the first run and
+          <strong>p = 0.019</strong> in the second run. Moran's I stayed
+          the same because the residuals and neighbour structure did not
+          change, while the p-values changed slightly because the permutation
+          test randomly reshuffles the residuals 999 times on each run.
+        </td>
+      </tr>
+
+
+      <tr>
+        <td><strong>Q3</strong></td>
+
+        <td>
+          Using the four-nearest-neighbours rule, Model A had
+          <strong>Moran's I = 0.0141</strong> with
+          <strong>p = 0.288</strong>, while Model B had
+          <strong>Moran's I = 0.2753</strong> with
+          <strong>p = 0.005</strong>. My conclusion did not change:
+          Model A's residuals still showed no meaningful spatial clustering,
+          while Model B's residuals remained significantly clustered.
+          The clustering for Model B became slightly stronger under the
+          <code>knn4</code> rule.
+        </td>
+      </tr>
+
+    </tbody>
+
+  </table>
+
+
+  <p>
+    Although Model B had a much higher R², its residuals were spatially
+    clustered. This suggests that the model is missing some geographically
+    organised factor that nighttime light alone does not capture.
+  </p>
+
+
+  <!-- ============================================================
+       WHAT THIS DOES NOT SHOW
+       ============================================================ -->
+
+  <h2>What this does not show</h2>
+
+  <p>
+    Nighttime light is not a direct measurement of economic activity.
+    A place can become brighter because of roads, industrial facilities,
+    lighting technology, or other changes that are not equivalent to growth
+    in GDP. Likewise, economically productive activities can occur in places
+    that remain relatively dark.
+  </p>
+
+  <p>
+    The residual test also depends on how a neighbour is defined. Under
+    queen contiguity, Hainan had no neighbour; under the four-nearest-neighbours
+    rule, every province had neighbours. Changing this spatial rule changed
+    the strength of the measured clustering, showing that the neighbour
+    definition is an analytical choice rather than something contained in
+    the satellite data.
+  </p>
+
+
+  <!-- ============================================================
+       AI DISCLOSURE
+       ============================================================ -->
+
+  <h3>AI disclosure</h3>
+
+  <p>
+    I used ChatGPT to clarify the Google Earth Engine steps, interpret the
+    Moran's I and permutation-test results, and review my HTML code. I checked
+    the numerical results against the Earth Engine Console and the Lab 6
+    instructions.
+  </p>
+
+
+  <a class="back" href="../index.html#labs">
+    ← Back to all labs
+  </a>
+
+</div>
+
+</article>
+
+</main>
+
+
+<footer class="site-foot">
+
+  <div class="wrap wrap-narrow">
+
+    <p>
+      Sazhida Mukanbetkaliyeva · SOCS-SHU 205 ·
+      NYU Shanghai · Fall 2026
+    </p>
+
+  </div>
+
+</footer>
+
+
+</body>
+</html>
