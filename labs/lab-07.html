@@ -1,1 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Lab 07 · Siting a New Hospital · Sazhida Mukanbetkaliyeva</title>
+
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+
+<header class="site-head">
+  <div class="wrap">
+
+    <a class="brand" href="../index.html">
+      Sazhida Mukanbetkaliyeva
+    </a>
+
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../index.html#labs">Labs</a>
+    </nav>
+
+  </div>
+</header>
+
+
+<main id="main">
+
+<article class="entry">
+
+<div class="wrap wrap-narrow">
+
+  <p class="kicker">Lab 07 · November 2026</p>
+
+  <h1>Siting a New Hospital</h1>
+
+
+  <!-- ============================================================
+       THE QUESTION
+       ============================================================ -->
+
+  <h2>The question</h2>
+
+  <p class="lead">
+    How does changing the weights assigned to nearby homes, road access,
+    and distance from existing hospitals affect which candidate site is
+    ranked best for a new hospital?
+  </p>
+
+
+  <!-- ============================================================
+       THE DATA
+       ============================================================ -->
+
+  <h2>The data</h2>
+
+  <p>
+    The analysis uses OpenStreetMap hospitals and roads
+    (© OpenStreetMap contributors), residential compounds with floor area
+    used as a measure of demand, and 69 candidate sites created using a
+    rule that excludes locations within 1,100 m of an existing hospital.
+  </p>
+
+
+  <!-- ============================================================
+       THE METHOD
+       ============================================================ -->
+
+  <h2>The method</h2>
+
+  <p>
+    I used a weighted overlay to combine three 0–100 criteria: distance
+    from existing hospitals, access to main roads, and nearby residential
+    coverage. I compared a coverage-first weighting with an access-first
+    weighting and then tested what happened when the raw coverage percentage
+    was used instead of the rescaled coverage score.
+  </p>
+
+
+  <!-- ============================================================
+       THE MAP
+       ============================================================ -->
+
+  <h2>The map</h2>
+
+  <p>
+    The first figure shows the candidate sites ranked using the
+    coverage-first score. The second figure shows the attribute table
+    sorted by the access-first score.
+  </p>
+
+
+  <h3>Figure 1 · Candidate sites ranked by score_a</h3>
+
+  <figure>
+    <img
+      src="lab07-screenshot1.png"
+      alt="QGIS map showing candidate hospital sites ranked by score_a with homes and existing hospitals visible"
+      style="width:100%; height:auto;">
+
+    <figcaption>
+      <strong>Figure 1.</strong>
+      Candidate hospital sites ranked using
+      <strong>weights 0.3 / 0.2 / 0.5</strong>
+      (hospital / road / coverage). Homes and existing hospitals are also
+      shown to provide context for the ranking.
+    </figcaption>
+  </figure>
+
+
+  <h3>Figure 2 · Candidate sites ranked by score_b</h3>
+
+  <figure>
+    <img
+      src="lab07-screenshot2.png"
+      alt="QGIS attribute table sorted by score_b with S50 and S51 as the two highest ranked sites"
+      style="width:100%; height:auto;">
+
+    <figcaption>
+      <strong>Figure 2.</strong>
+      Attribute table sorted by <code>score_b</code> using
+      <strong>weights 0.2 / 0.6 / 0.2</strong>
+      (hospital / road / coverage). Under this weighting, S50 becomes
+      the highest-ranked site.
+    </figcaption>
+  </figure>
+
+
+  <!-- ============================================================
+       WHAT I FOUND
+       ============================================================ -->
+
+  <h2>What I found</h2>
+
+
+  <style>
+    .lab07-results {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin: 1.5rem 0 2rem;
+      border: 1px solid #374151;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .lab07-results th,
+    .lab07-results td {
+      padding: 16px 18px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid #374151;
+    }
+
+    .lab07-results th {
+      background: #1a2029;
+      font-weight: 700;
+    }
+
+    .lab07-results th:first-child,
+    .lab07-results td:first-child {
+      width: 90px;
+      font-weight: 700;
+      border-right: 1px solid #374151;
+    }
+
+    .lab07-results tbody tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .lab07-results tbody tr:last-child td {
+      border-bottom: none;
+    }
+  </style>
+
+
+  <table class="lab07-results">
+
+    <thead>
+      <tr>
+        <th>Question</th>
+        <th>Answer</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+
+      <tr>
+        <td><strong>Q1</strong></td>
+
+        <td>
+          <strong>17</strong> of the 69 candidate sites have at least
+          some homes within 1 km.
+        </td>
+      </tr>
+
+
+      <tr>
+        <td><strong>Q2</strong></td>
+
+        <td>
+          The two highest-ranked sites under <code>score_a</code> are
+          <strong>S51 (73.69)</strong> and
+          <strong>S50 (70.47)</strong>.
+        </td>
+      </tr>
+
+
+      <tr>
+        <td><strong>Q3</strong></td>
+
+        <td>
+          Under <code>score_b</code>, the top two sites are
+          <strong>S50 (82.88)</strong> and
+          <strong>S51 (82.46)</strong>. Yes, the winner changed:
+          S51 was first under <code>score_a</code>, but S50 became first
+          when road access received the largest weight.
+        </td>
+      </tr>
+
+
+      <tr>
+        <td><strong>Q4</strong></td>
+
+        <td>
+          Seven sites are tied for first place with a
+          <code>score_raw</code> of <strong>50.00</strong>. All seven
+          have <strong>no homes within 1 km</strong>, meaning
+          <code>cov_pct = 0</code>. Using the raw coverage percentage
+          makes residential coverage much less influential than the
+          other criteria.
+        </td>
+      </tr>
+
+
+      <tr>
+        <td><strong>Q5</strong></td>
+
+        <td>
+          <strong>S51</strong> was selected in every simulated-annealing
+          run. <strong>S44</strong> and <strong>S60</strong> each appeared
+          in four runs. The worst run had an average distance of
+          <strong>987.1 m</strong>, compared with
+          <strong>838.3 m</strong> for the best run, so the worst run was
+          about <strong>17.8% (approximately 18%) worse</strong> than the
+          best.
+        </td>
+      </tr>
+
+
+    </tbody>
+
+  </table>
+
+
+  <p>
+    The ranking changed when the weights changed: prioritising nearby
+    residential demand selected S51, while giving more importance to road
+    access moved S50 into first place. The raw-coverage experiment also
+    showed that rescaling a criterion can influence the result as much as
+    the weights themselves.
+  </p>
+
+
+  <!-- ============================================================
+       WHAT THIS DOES NOT SHOW
+       ============================================================ -->
+
+  <h2>What this does not show</h2>
+
+  <p>
+    The ranking does not identify an objectively best hospital site because
+    the result depends on choices made before and during the analysis,
+    including the 1,100 m candidate rule, how residential demand is
+    represented, how each criterion is rescaled, and which weights are used.
+  </p>
+
+  <p>
+    The five-hospital experiment also uses a heuristic rather than checking
+    every possible combination, so different random seeds can produce
+    different solutions and the true optimal set is not known.
+  </p>
+
+
+  <!-- ============================================================
+       REFLECTION
+       ============================================================ -->
+
+  <h3>Reflection</h3>
+
+  <p class="muted">
+    The reflection for this lab is submitted separately on Brightspace.
+  </p>
+
+
+  <!-- ============================================================
+       AI DISCLOSURE
+       ============================================================ -->
+
+  <h3>AI disclosure</h3>
+
+  <p>
+    I used ChatGPT to clarify the QGIS steps, interpret the weighted-overlay
+    results, and review my HTML code. I checked the numerical results against
+    my QGIS attribute tables and the Lab 7 instructions.
+  </p>
+
+
+  <a class="back" href="../index.html#labs">
+    ← Back to all labs
+  </a>
+
+</div>
+
+</article>
+
+</main>
+
+
+<footer class="site-foot">
+
+  <div class="wrap wrap-narrow">
+
+    <p>
+      Sazhida Mukanbetkaliyeva · SOCS-SHU 205 ·
+      NYU Shanghai · Fall 2026
+    </p>
+
+  </div>
+
+</footer>
+
+
+</body>
+</html>
